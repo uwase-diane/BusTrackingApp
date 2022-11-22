@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">TB</string>
 
+    <string name="signuplink">Don’t have an account?</string>
 </resources>
