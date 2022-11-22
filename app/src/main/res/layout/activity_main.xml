@@ -66,4 +66,31 @@
         android:layout_marginTop="170dp"
        />
 </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textAlignment="center"
+        android:gravity="center"
+        tools:ignore="MissingConstraints">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Don’t have an account?"
+            android:textColor="#444444"
+            android:layout_marginTop="150dp"
+            android:fontFamily="@font/roboto"
+            />
+        <TextView
+            android:id="@+id/signUpLink"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Sign up"
+            android:layout_marginTop="150dp"
+            android:textColor="#6FCF97"
+
+            android:fontFamily="@font/roboto"
+            />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

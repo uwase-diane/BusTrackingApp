@@ -70,7 +70,11 @@
         tools:ignore="MissingConstraints">
 
         <Button
+<<<<<<< HEAD
             android:id="@+id/registerButton"
+=======
+            android:id="@+id/signUp"
+>>>>>>> 60443481433969c1b403bd783f6f94a653547776
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
