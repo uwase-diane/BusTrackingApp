@@ -29,12 +29,12 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        fullName=findViewById(R.id.namesInput);
-        email=findViewById(R.id.emailInput);
-        password=findViewById(R.id.passwordInput);
-        registerButton=findViewById(R.id.registerButton);
+        fullName = findViewById(R.id.namesInput);
+        email = findViewById(R.id.emailInput);
+        password = findViewById(R.id.passwordInput);
+        registerButton = findViewById(R.id.signUp);
 
-        fAuth=FirebaseAuth.getInstance();
+        fAuth = FirebaseAuth.getInstance();
 //        if(fAuth.getCurrentUser()!=null)
 //        {
 //            startActivity(new Intent(getApplicationContext(),MainActivity.class));
@@ -44,31 +44,26 @@ public class SignUpActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emails =email.getText().toString().trim();
-                String npasswrd=password.getText().toString().trim();
+                String emails = email.getText().toString().trim();
+                String npasswrd = password.getText().toString().trim();
 
-                if(TextUtils.isEmpty(emails))
-                {
+                if (TextUtils.isEmpty(emails)) {
                     email.setError("email is required");
                 }
-                if(TextUtils.isEmpty(npasswrd))
-                {
+                if (TextUtils.isEmpty(npasswrd)) {
                     password.setError("password is required");
                 }
-                if(npasswrd.length()<6)
-                {
+                if (npasswrd.length() < 6) {
                     password.setError(("password must be >= 6characters"));
                 }
-                fAuth.createUserWithEmailAndPassword(emails,npasswrd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fAuth.createUserWithEmailAndPassword(emails, npasswrd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful())
-                        {
-                            Toast.makeText(SignUpActivity.this,"User created",Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                        }else
-                        {
-                            Toast.makeText(SignUpActivity.this,"ERROR!"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(SignUpActivity.this, "User created", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        } else {
+                            Toast.makeText(SignUpActivity.this, "ERROR!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -76,19 +71,18 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
 
-
-        signUpBtn =  findViewById(R.id.signUp);
-        signUpBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signUpActivity();
-            }
-        });
+//        registerButton =  findViewById(R.id.signUp);
+//        registerButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                signUpActivity();
+//            }
+//        });
+//    }
+//
+//    public void signUpActivity() {
+//        Intent intent = new Intent(this, MainActivity.class);
+//        startActivity(intent);
+//    }
     }
-
-    public void signUpActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
 }
