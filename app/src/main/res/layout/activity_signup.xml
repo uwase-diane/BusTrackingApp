@@ -28,7 +28,7 @@
             android:id="@+id/namesInput"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="150dp"
             android:background="#F5F5F5"
             android:drawablePadding="5dp"
             android:paddingTop="20dp"
@@ -50,15 +50,15 @@
             android:id="@+id/emailInput"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_marginTop="400dp"
+            android:layout_marginTop="250dp"
             android:background="#F5F5F5"
-            android:drawableStart="@drawable/ic_baseline_lock_24"
+            android:drawableStart="@drawable/ic_baseline_email_24"
             android:drawablePadding="5dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:hint="Password"
+            android:hint="Email"
             android:inputType="text"/>
 
     </LinearLayout>
@@ -77,9 +77,9 @@
             android:paddingBottom="20dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:drawableStart="@drawable/ic_baseline_email_24"
-            android:hint="Email"
-            android:layout_marginTop="300dp"
+            android:drawableStart="@drawable/ic_baseline_lock_24"
+            android:hint="Password"
+            android:layout_marginTop="350dp"
             android:inputType="text"/>
     </LinearLayout>
 
@@ -96,7 +96,7 @@
             android:layout_width="350dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:layout_marginTop="400dp"
+            android:layout_marginTop="350dp"
             android:text="Sign up" />
     </LinearLayout>
 
@@ -111,7 +111,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="270dp"
+            android:layout_marginTop="250dp"
             android:fontFamily="@font/roboto"
             android:text="Already have an account? "
             android:textColor="#444444" />
@@ -120,7 +120,7 @@
             android:id="@+id/signUpLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="270dp"
+            android:layout_marginTop="250dp"
             android:fontFamily="@font/roboto"
             android:text="Sign in"
             android:textColor="#6FCF97" />
