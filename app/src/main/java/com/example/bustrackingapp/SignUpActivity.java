@@ -33,7 +33,6 @@ public class SignUpActivity extends AppCompatActivity {
         email = findViewById(R.id.emailInput);
         password = findViewById(R.id.passwordInput);
         registerButton = findViewById(R.id.signUp);
-        signUpBtn = findViewById(R.id.signUp);
 
         fAuth = FirebaseAuth.getInstance();
 //        if(fAuth.getCurrentUser()!=null)
@@ -72,7 +71,8 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
 
-//        signUpBtn.setOnClickListener(new View.OnClickListener() {
+//        registerButton =  findViewById(R.id.signUp);
+//        registerButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
 //                signUpActivity();
@@ -84,6 +84,5 @@ public class SignUpActivity extends AppCompatActivity {
 //        Intent intent = new Intent(this, MainActivity.class);
 //        startActivity(intent);
 //    }
-
     }
 }

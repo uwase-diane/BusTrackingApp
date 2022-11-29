@@ -23,8 +23,23 @@
         <activity
             android:name=".SplashScreen"
             android:exported="true"
-            android:theme="@style/SplashScreen">
+            android:theme="@style/SplashScreen"/>
+            <activity
+                android:name=".RouteDetailsActivity"
+                android:exported="true"/>
 
+        <activity
+            android:name=".TimeBusActivty"
+            android:exported="true"/>
+        <activity
+            android:name=".StudentsListActivity"
+            android:exported="true"
+            />
+
+        <activity
+            android:name=".StudentFeedbackActivity"
+            android:exported="true"
+             >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,6 +50,11 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

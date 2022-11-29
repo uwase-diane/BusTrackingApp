@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
 
         signUpLink = findViewById(R.id.signUpLink);
-
         signUpLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

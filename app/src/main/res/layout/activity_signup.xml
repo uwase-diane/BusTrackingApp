@@ -28,7 +28,14 @@
             android:id="@+id/namesInput"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_marginTop="250dp"
+            android:layout_marginTop="200dp"
+            android:background="#F5F5F5"
+            android:drawablePadding="5dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:drawableStart="@drawable/ic_baseline_person_24"
             android:hint="Name"
             android:inputType="text"/>
 
@@ -43,8 +50,15 @@
             android:id="@+id/emailInput"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_marginTop="300dp"
-            android:hint="Email"
+            android:layout_marginTop="400dp"
+            android:background="#F5F5F5"
+            android:drawableStart="@drawable/ic_baseline_lock_24"
+            android:drawablePadding="5dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:hint="Password"
             android:inputType="text"/>
 
     </LinearLayout>
@@ -57,8 +71,15 @@
             android:id="@+id/passwordInput"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:hint="Password"
-            android:layout_marginTop="350dp"
+            android:background="#F5F5F5"
+            android:drawablePadding="5dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:drawableStart="@drawable/ic_baseline_email_24"
+            android:hint="Email"
+            android:layout_marginTop="300dp"
             android:inputType="text"/>
     </LinearLayout>
 
@@ -71,12 +92,38 @@
 
         <Button
             android:id="@+id/signUp"
+            android:backgroundTint="#6FCF97"
+            android:layout_width="350dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="400dp"
+            android:text="Sign up" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:textAlignment="center"
+        tools:ignore="MissingConstraints">
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="170dp"
-            android:backgroundTint="#6FCF97"
-            android:text="Sign up" />
+            android:layout_marginTop="270dp"
+            android:fontFamily="@font/roboto"
+            android:text="Already have an account? "
+            android:textColor="#444444" />
+
+        <TextView
+            android:id="@+id/signUpLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="270dp"
+            android:fontFamily="@font/roboto"
+            android:text="Sign in"
+            android:textColor="#6FCF97" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
