@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                         if(task.isSuccessful())
                         {
                             Toast.makeText(MainActivity.this, "logged in succefully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            startActivity(new Intent(getApplicationContext(), RouteDetailsActivity.class));
 
                         }
                         else
