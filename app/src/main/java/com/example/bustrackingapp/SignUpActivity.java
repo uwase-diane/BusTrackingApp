@@ -20,10 +20,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText fullName,email,password;
-    Button registerButton;
-
-    FirebaseAuth fAuth;
+    private EditText fullName, email, password;
+    private Button registerButton;
+    private Button signUpBtn;
+    private FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
