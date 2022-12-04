@@ -34,12 +34,14 @@
             android:name=".SplashScreen"
             android:exported="true"
             android:theme="@style/SplashScreen"/>
-            <activity
-                android:name=".RouteDetailsActivity"
-                android:exported="true"/>
+        <activity
+            android:name=".RouteDetailsActivity"
+            android:exported="true"/>
 
         <activity android:name=".MainActivity"
             android:exported="true">
+
+
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
