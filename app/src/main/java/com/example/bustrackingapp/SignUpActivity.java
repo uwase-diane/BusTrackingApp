@@ -54,7 +54,7 @@ public class SignUpActivity extends AppCompatActivity {
                     password.setError("password is required");
                 }
                 if (npasswrd.length() < 6) {
-                    password.setError(("password must be >= 6characters"));
+                    password.setError((getString(R.string.invalid_password)));
                 }
                 fAuth.createUserWithEmailAndPassword(emails, npasswrd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TB</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="action_sign_in">Connectez-vous ou S\'inscrire</string>
+    <string name="title_activity_login">"compte "</string>
+    <string name="action_sign_in_short">Connectez-vous</string>
+    <string name="welcome">Bienvenue</string>
+    <string name="invalid_username">Nom d\'utilisateur non valide</string>
+    <string name="invalid_password">" mot de passe doit contenir plus de 5 caractères"</string>
+    <string name="login_failed">Échec de la connexion</string>
+    <string name="prompt_emailzz">E-mail</string>
+    <string name="logged_in_successfully">Connecté avec succès</string>
+    <string name="Login_to_your_Account">Connectez-vous à votre compte</string>
+    <string name="password">le mot de passe</string>
+    <string name="have_no_account">" pas de compte?"</string>
+    <string name="Sign_up">Créer nouveau compte</string>
+    <string name="Login">Se connecter</string>
+</resources>
