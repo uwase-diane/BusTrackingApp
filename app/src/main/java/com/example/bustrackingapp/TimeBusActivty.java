@@ -22,7 +22,15 @@ public class TimeBusActivty extends AppCompatActivity {
         setContentView(R.layout.activity_bus_time);
         pickUpTimeSpinner = findViewById(R.id.backup_time);
         List<String> time = new ArrayList<>();
-        time.add("Select your prefered time ");
+//        time.add("Select your preferred time ");
+        //adding options in the preferred pickup time
+        time.add("6:30");
+        time.add("7:45");
+        time.add("8:05");
+        time.add("9:00");
+        time.add("10:30");
+        time.add("11:00");
+        time.add("13:00");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, time);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pickUpTimeSpinner.setAdapter(arrayAdapter);
@@ -52,6 +60,7 @@ public class TimeBusActivty extends AppCompatActivity {
                 if (parent.getItemAtPosition(position).equals("Choose from lis")){
                 }else {
                     String item = parent.getItemAtPosition(position).toString();
+
                     Toast.makeText(parent.getContext(),"Selected: " +item, Toast.LENGTH_SHORT).show();
                 }
             }

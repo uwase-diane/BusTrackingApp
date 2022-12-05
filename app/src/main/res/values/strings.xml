@@ -9,5 +9,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-
+    <string name="no_permission_warning">The application requires permission to access your location.</string>
+    <string name="null_location_message">Not available</string>
+    <string name="current_location">Bus Location</string>
 </resources>
