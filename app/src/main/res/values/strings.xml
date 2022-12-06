@@ -16,5 +16,12 @@
     <string name="Sign_up">signup</string>
     <string name="Login">login</string>
 
-
+    <string name="no_permission_warning">The application requires permission to access your location.</string>
+    <string name="null_location_message">Not available</string>
+    <string name="current_location">Bus Location</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="map_me">Map Me</string>
+    <string name="text_me">Text Me</string>
+    <string name="default_location_text">(15, -30.6)</string>
 </resources>

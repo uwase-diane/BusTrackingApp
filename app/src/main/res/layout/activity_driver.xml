@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:text="BUS TIME"
+            android:text="Select route and time"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="50dp"
             android:textColor="@color/black"
@@ -26,18 +26,16 @@
         android:layout_marginTop="100dp"
         android:orientation="vertical">
         <Spinner
-            android:id="@+id/backup_time"
+            android:id="@+id/routes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_margin="20dp" />
 
         <Spinner
-            android:id="@+id/notify_time"
+            android:id="@+id/times"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:layout_marginTop="100dp"
             android:textColor="#444444"/>
 
     </LinearLayout>

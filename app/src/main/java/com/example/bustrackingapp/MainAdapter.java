@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,8 @@ public class MainAdapter extends FirebaseRecyclerAdapter<RouteStop,MainAdapter.M
         holder.name5.setText(model.getName5());
         holder.name6.setText(model.getName6());
 
+
+
         //route2
 
 //        holder.name7.setText(model.getName7());
@@ -58,8 +61,8 @@ public class MainAdapter extends FirebaseRecyclerAdapter<RouteStop,MainAdapter.M
 
     class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView name1,name2,name3,name4,name5,name6;
-        TextView name7,name8,name9,name10,name11,name12;
+//        TextView name7,name8,name9,name10,name11,name12;
+        RadioButton name1,name2,name3,name4,name5,name6;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +77,7 @@ public class MainAdapter extends FirebaseRecyclerAdapter<RouteStop,MainAdapter.M
 
             //route2
 
+//            name7 = itemView.findViewById(R.id.name7);
 //            name8 = itemView.findViewById(R.id.name8);
 //            name9 = itemView.findViewById(R.id.name9);
 //            name10 = itemView.findViewById(R.id.name10);
