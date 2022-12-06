@@ -13,9 +13,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
+            android:drawableStart="@drawable/ic_baseline_arrow_left_24"
             android:text="BUS TIME"
             android:layout_marginTop="30dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/black"
             android:textSize="20sp" />
     </LinearLayout>
