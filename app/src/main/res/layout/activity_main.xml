@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:text="Login to your Account"
+            android:text="@string/Login_to_your_Account"
             android:textColor="#444444"
             android:textSize="45sp" />
 
@@ -78,7 +78,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="190dp"
             android:backgroundTint="#6FCF97"
-            android:text="Login" />
+            android:text="@string/Login" />
     </LinearLayout>
 
     <LinearLayout
@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="150dp"
             android:fontFamily="@font/roboto"
-            android:text="Don’t have an account? "
+            android:text="@string/have_no_account"
             android:textColor="#444444" />
 
         <TextView
@@ -102,8 +102,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="150dp"
             android:fontFamily="@font/roboto"
-            android:text="Sign up"
+            android:text="@string/Sign_up"
             android:textColor="#6FCF97" />
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

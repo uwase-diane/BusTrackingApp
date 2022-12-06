@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TB</string>
+    <string name="prompt_password">Ijambo banga</string>
+    <string name="action_sign_in">Gufungura konti nshya</string>
+    <string name="title_activity_login">LoginAcitivity</string>
+    <string name="welcome">Murakaza neza</string>
+    <string name="invalid_password">Ijambobanga wanditse si ryo</string>
+    <string name="login_failed">Ijambobanga wanditse si ryo</string>
+</resources>

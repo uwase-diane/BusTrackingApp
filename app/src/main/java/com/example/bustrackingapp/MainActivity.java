@@ -56,20 +56,20 @@ public class MainActivity extends AppCompatActivity {
                     password.setError("password is required");
                 }
                 if (npasswrd.length() < 6) {
-                    password.setError(("password must be >= 6characters"));
+                    password.setError(getString(R.string.invalid_password));
                 }
                 fAuth.signInWithEmailAndPassword(emails,npasswrd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            Toast.makeText(MainActivity.this, "logged in succefully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, R.string.logged_in_successfully, Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), RouteDetailsActivity.class));
 
                         }
                         else
                         {
-                            Toast.makeText(MainActivity.this, "ERROR!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, R.string.login_failed + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 
                         }
                     }

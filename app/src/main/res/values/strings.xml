@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TB</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
+    <string name="prompt_emailzz">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -9,6 +9,13 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="logged_in_successfully">"Login success"</string>
+    <string name="Login_to_your_Account">"Login to your account"</string>
+    <string name="password">password</string>
+    <string name="have_no_account">Don’t_have_an_account?</string>
+    <string name="Sign_up">signup</string>
+    <string name="Login">login</string>
+
     <string name="no_permission_warning">The application requires permission to access your location.</string>
     <string name="null_location_message">Not available</string>
     <string name="current_location">Bus Location</string>
