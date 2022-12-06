@@ -9,5 +9,12 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-
+    <string name="no_permission_warning">The application requires permission to access your location.</string>
+    <string name="null_location_message">Not available</string>
+    <string name="current_location">Bus Location</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="map_me">Map Me</string>
+    <string name="text_me">Text Me</string>
+    <string name="default_location_text">(15, -30.6)</string>
 </resources>
