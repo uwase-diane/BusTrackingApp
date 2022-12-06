@@ -80,7 +80,7 @@
             android:drawableStart="@drawable/ic_baseline_lock_24"
             android:hint="Password"
             android:layout_marginTop="350dp"
-            android:inputType="text"/>
+            android:inputType="textPassword"/>
     </LinearLayout>
 
     <LinearLayout
