@@ -25,7 +25,6 @@ public class RouteDetailsActivity extends AppCompatActivity {
     DatabaseReference database;
     RecyclerView recyclerview;
     MainAdapter mainAdapter;
-    ArrayList<RouteStop> list;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -38,7 +37,7 @@ public class RouteDetailsActivity extends AppCompatActivity {
 
         FirebaseRecyclerOptions<RouteStop> options =
                 new FirebaseRecyclerOptions.Builder<RouteStop>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Routes"), RouteStop.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Route"), RouteStop.class)
                         .build();
         mainAdapter = new MainAdapter(options);
         recyclerview.setAdapter(mainAdapter);
