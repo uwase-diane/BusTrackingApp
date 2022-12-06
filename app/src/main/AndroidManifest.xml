@@ -42,7 +42,9 @@
         <activity
             android:name=".TimeBusActivty"
             android:exported="true"/>
-
+        <activity
+            android:name=".entities.bus_mapping.MapBusActivity"
+            android:exported="true"/>
         <activity
             android:name=".DriverActivity"
             android:exported="true"/>
