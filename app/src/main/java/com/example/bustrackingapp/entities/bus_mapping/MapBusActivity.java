@@ -26,7 +26,6 @@ import java.util.Locale;
 public class MapBusActivity extends AppCompatActivity
 {
     private final int LOCATION_PERMISSION_REQUEST_CODE = 13;
-    private final int SMS_PERMISSION_REQUEST_CODE = 12;
     private Location location;
     private LocationManager locationManager;
 
@@ -75,12 +74,12 @@ public class MapBusActivity extends AppCompatActivity
                 System.exit(0);
             }
         }
-        if (requestCode == SMS_PERMISSION_REQUEST_CODE) {
-            if (grantResults.length <= 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Not permitted to send an SMS", Toast.LENGTH_LONG).show();
-            }
-        }
+//        if (requestCode == SMS_PERMISSION_REQUEST_CODE) {
+//            if (grantResults.length <= 0
+//                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                Toast.makeText(this, "Not permitted to send an SMS", Toast.LENGTH_LONG).show();
+//            }
+//        }
     }
     @Override
     protected void onStop() {
@@ -98,17 +97,7 @@ public class MapBusActivity extends AppCompatActivity
         }
         return true;
     }
-    public boolean checkForSmsPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
 
-                requestPermissions(new String[]{Manifest.permission.SEND_SMS},
-                        SMS_PERMISSION_REQUEST_CODE);
-                return false;
-            }
-        }
-        return true;
-    }
     private void registerForLocationUpdates() {
         if (checkForLocationPermission())
             locationManager.requestLocationUpdates("gps", 30000L, 10.0f, new LocationUpdatesListener());
