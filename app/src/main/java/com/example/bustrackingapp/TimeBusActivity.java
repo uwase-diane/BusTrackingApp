@@ -4,18 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.bustrackingapp.entities.RouteStop;
 import com.example.bustrackingapp.entities.bus_mapping.MapBusActivity;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,13 +19,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class TimeBusActivty extends AppCompatActivity {
+public class TimeBusActivity extends AppCompatActivity {
 
     Spinner pickUpTimeSpinner;
     Spinner notifyTimeSpinner;
-    MainAdapter mainAdapter;
     DatabaseReference databaseReference;
     ValueEventListener listener;
     ArrayList<String> time;

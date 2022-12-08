@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bustrackingapp.entities.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -49,6 +50,15 @@ public class MainActivity extends AppCompatActivity {
                 String emails = email.getText().toString().trim();
                 String npasswrd = password.getText().toString().trim();
 
+                User user = new User();
+                user.setEmail(emails);
+                user.setPassword(npasswrd);
+                System.out.println("test test "+user.getEmail());
+                System.out.println("test test "+user.getPassword());
+//                System.out.println("test test "+user.getFullnames());
+
+
+
                 if (TextUtils.isEmpty(emails)) {
                     email.setError("email is required");
                 }
@@ -63,8 +73,21 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
+                            Intent intent = getIntent();
+                          if(intent.getStringExtra("user").equals("busdriver"))
+                          {
+                              startActivity(new Intent(getApplicationContext(), DriverActivity.class));
+                              return;
+                          }
+                           if(intent.getStringExtra("user").equals("bustudent"))
+                            {
+                                startActivity(new Intent(getApplicationContext(), RouteDetailsActivity.class));
+                                return;
+
+                            }
+
                             Toast.makeText(MainActivity.this, R.string.logged_in_successfully, Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), RouteDetailsActivity.class));
+
 
                         }
                         else
