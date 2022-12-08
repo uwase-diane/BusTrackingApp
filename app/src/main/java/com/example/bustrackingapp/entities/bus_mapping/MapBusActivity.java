@@ -1,10 +1,11 @@
 package com.example.bustrackingapp.entities.bus_mapping;
-
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -12,141 +13,375 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.provider.Settings;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.bustrackingapp.R;
+import com.google.android.gms.maps.SupportMapFragment;
 
 import java.util.Locale;
 
+
 public class MapBusActivity extends AppCompatActivity
 {
-    private final int LOCATION_PERMISSION_REQUEST_CODE = 13;
     private Location location;
     private LocationManager locationManager;
+    private TextView longitudeTextView;
+    private TextView latudeTextView;
 
-    private PendingIntent deliveredPendingIntent;
-    private TextView txtLatLong;
+    private SupportMapFragment supportMapFragment;
+    private MapBusFragment googleMapFragment;
+    private boolean firstTimePermissionEnabled = true;
+    private static final int SMS_PERMISSION_REQUEST_CODE = 12;
+    // TAG for log
+    private final String TAG = "MapBusActivity";
 
-    private Button btnMapMe;
-    private Locale currentLocale;
+    // toast notification
+    private Toast toastObj;
 
+
+    // called when mainActivity is first created.
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        if(checkForSmsPermission())
+            firstTimePermissionEnabled = false;
+
+        // initialize toast object
+        toastObj = Toast.makeText(getApplicationContext(),
+                "Default toast message", Toast.LENGTH_SHORT);
+        toastObj.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+
         super.onCreate(savedInstanceState);
+        // zero arg constructor
+        googleMapFragment = MapBusFragment.newInstance();
+
+        checkLocationServices(savedInstanceState);
         setContentView(R.layout.activity_map_main);
 
-        txtLatLong = (TextView) findViewById(R.id.txt_lat_long);
 
-        btnMapMe = (Button) findViewById(R.id.btn_map_me);
+        // find the TextViews for longitude and latitude
+        longitudeTextView = findViewById(R.id.longitude_value);
+        latudeTextView = findViewById(R.id.latitude_value);
 
-        currentLocale = getResources().getConfiguration().locale;
+        // finding views for buttons
+        Button btnMapMe = findViewById(R.id.map_me_button);
 
+
+        // get handle for SupportMapFragment
+        supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_location);
+
+        // adding listener to button to pop up map
+        btnMapMe.setOnClickListener(v ->
+        {
+            // location permission request
+            if (!checkForLocationPermission())
+            {
+                Log.d(TAG, "Start LocationPermissionRequest as there is no permission to get location");
+                Intent startIntent = new Intent(this, LocationPermissionRequest.class);
+                startActivityForResult(startIntent, 0);
+            }
+
+            // google map fragment on screen.
+            loadGoogleMapFragment();
+        });
+
+    }
+    public void onClickApprovePermissionRequest(View view)
+    {
+        Log.d(TAG, "onClickApprovePermissionRequest()");
+
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.SEND_SMS},
+                SMS_PERMISSION_REQUEST_CODE);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        // location permission request
+        if (!checkForLocationPermission())
+        {
+            Log.d(TAG, "Start LocationPermissionRequest as there is no permission to get location");
+            Intent startIntent = new Intent(this, LocationPermissionRequest.class);
+            startActivityForResult(startIntent, 0);
+        }
+        //get handle for LocationManager
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        //get handle for Locale
+        Locale locale = getResources().getConfiguration().locale;
+
+        //get handle for current location including latitude and longitude
         location = this.getCurrentLocation();
-        displayLocation();
+
+        //track the location as device moves
         registerForLocationUpdates();
 
-        btnMapMe.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                openDialog();
-            }
-        });
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            // If request is cancelled, the result arrays are empty.
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                location = getCurrentLocation();
-                displayLocation();
-                registerForLocationUpdates();
-            } else {
-                Toast.makeText(this, getString(R.string.no_permission_warning), Toast.LENGTH_LONG).show();
+        // display my current coordinates
+        viewMyLocation();
 
-                finishAffinity();
-                System.exit(0);
-            }
-        }
-//        if (requestCode == SMS_PERMISSION_REQUEST_CODE) {
-//            if (grantResults.length <= 0
-//                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                Toast.makeText(this, "Not permitted to send an SMS", Toast.LENGTH_LONG).show();
-//            }
-//        }
+        Log.d(TAG, "Start and register SMS send and delivered receiver");
+
     }
+
     @Override
-    protected void onStop() {
+    protected void onStop()
+    {
         super.onStop();
+        Log.d(TAG, "onStop");
     }
-    public boolean checkForLocationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        LOCATION_PERMISSION_REQUEST_CODE);
-                return false;
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        Log.d(TAG, "onPause");
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected void onRestart()
+    {
+        super.onRestart();
+        Log.d(TAG, "onRestart");
+
+        // checking for permissions
+        if (checkForSmsPermission())
+        {
+            if(firstTimePermissionEnabled)
+            {
+
+                firstTimePermissionEnabled = false;
             }
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        {
+            if (!checkForLocationPermission())
+            {
+                Log.d(TAG, "No permission for location onRestart, app ending");
+                this.finishAffinity();
+            } else
+            {
+                Log.d(TAG, "Permission for location onRestart, app continuing");
+            }
+        }
+
+    }
+
+    // check for permission to use location on the device.
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public boolean checkForLocationPermission()
+    {
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            Log.d(TAG, "No permission for location");
+            return false;
+        }
+        Log.d(TAG, "Permission for location");
         return true;
     }
 
-    private void registerForLocationUpdates() {
-        if (checkForLocationPermission())
-            locationManager.requestLocationUpdates("gps", 30000L, 10.0f, new LocationUpdatesListener());
+    // check if permission to send SMS is set
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public boolean checkForSmsPermission()
+    {
+        Log.d(TAG, "checkForSmsPermission");
+
+        // checking if permission has been granted
+        if (checkSelfPermission(Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED)
+        {
+            Log.d(TAG, "Permission to send SMS denied previously!");
+
+            return false;
+        }
+        Log.d(TAG, "Permission to send SMS accepted previously!");
+
+        return true;
     }
 
-    public Location getCurrentLocation() {
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        Log.d(TAG, "onResume");
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public Location getCurrentLocation()
+    {
         if (checkForLocationPermission())
             return locationManager.getLastKnownLocation("gps");
         else
             return null;
     }
-    public void displayLocation() {
+
+
+    public void viewMyLocation()
+    {
         if (location != null)
-            txtLatLong.setText(String.format(
-                    currentLocale, "(%.2f,%.2f)", location.getLatitude(), location.getLongitude()
-            ));
-        else
-            txtLatLong.setText(getString(R.string.null_location_message));
+        {
+            // update views
+            longitudeTextView.setText(String.valueOf(location.getLongitude()));
+            latudeTextView.setText(String.valueOf(location.getLatitude()));
+        } else
+        {
+            // no coordinates set
+            showToastMsg("No Coordinates to Display!");
+            longitudeTextView.setText(R.string.no_coordinates);
+            latudeTextView.setText(R.string.no_coordinates);
+            showToastMsg("Kindly check your location settings!");
+        }
+
     }
 
-    private void openDialog() {
+    private void loadGoogleMapFragment()
+    {
+        googleMapFragment = MapBusFragment.newInstance(location, supportMapFragment);
+
         if (location != null)
-            MapBusFragment.newInstance(location).show(getSupportFragmentManager(), null);
-        else
-            Toast.makeText(this, "Location not available", Toast.LENGTH_LONG).show();
-    }
-    private class LocationUpdatesListener implements LocationListener {
-
-        @Override
-        public void onLocationChanged(Location loc) {
-            location = loc;
-            displayLocation();
+        {
+            getSupportFragmentManager().beginTransaction().replace(R.id.map_location, googleMapFragment).commit();
+            showToastMsg("See your current location on Google Map!");
+        } else
+        {
+            showToastMsg("Location not available!, please check location and internet status!");
         }
 
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-
-        }
     }
 
+
+
+
+
+
+
+
+
+
+    private class LocationUpdatesListener implements LocationListener
+    {
+        @Override
+        public void onLocationChanged(@NonNull Location _location)
+        {
+            Log.d(TAG, "onLocationChanged");
+
+            if (_location != null)
+                location = _location;
+            viewMyLocation();
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras)
+        {
+            Log.d(TAG, "onStatusChanged");
+            showToastMsg("Location disabled!, please enable location");
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.M)
+        @Override
+        public void onProviderEnabled(@NonNull String provider)
+        {
+            Log.d(TAG, "onProviderEnabled");
+            if (checkForLocationPermission())
+                locationManager.requestLocationUpdates("gps", 1000L, 1.0f, this);
+        }
+
+        @Override
+        public void onProviderDisabled(@NonNull String provider)
+        {
+            Log.d(TAG, "onProviderDisabled");
+
+            showToastMsg("Location disabled!, please enable location");
+        }
+
+    }
+
+    public void showToastMsg(String toastMsg)
+    {
+        // update toast message and show
+        toastObj.setText(toastMsg);
+        toastObj.show();
+    }
+
+    // check if location service is active
+    public void checkLocationServices(Bundle savedInstanceState)
+    {
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        boolean gps_enabled = false;
+
+        try
+        {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (Exception ex)
+        {
+        }
+
+
+        if (!gps_enabled)
+        {
+            // notify user
+            new AlertDialog.Builder(this)
+                    .setMessage(R.string.location_not_enabled)
+                    .setPositiveButton(R.string.continue_text, new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface paramDialogInterface, int paramInt)
+                        {
+                            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        }
+                    })
+                    .setNegativeButton(R.string.no_thanks_text, null)
+                    .show();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void registerForLocationUpdates()
+    {
+        if (checkForLocationPermission())
+            locationManager.requestLocationUpdates("gps", 500L, 1.0f, new LocationUpdatesListener());
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        try
+        {
+            // checking if googleMapFragment has been previously set
+            if (googleMapFragment != null)
+                outState.putParcelable("obj", (Parcelable) googleMapFragment);
+        } catch (Exception e)
+        {
+            Log.d(TAG, "googleMapFragment not yet set");
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        // TODO Auto-generated method stub
+        super.onRestoreInstanceState(savedInstanceState);
+        googleMapFragment = savedInstanceState.getParcelable("obj");
+    }
 
 }

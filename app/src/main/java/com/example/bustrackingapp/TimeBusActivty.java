@@ -70,9 +70,6 @@ public class TimeBusActivty extends AppCompatActivity {
         notifyTimeSpinner.setAdapter(arrayAdapterNotifyTime);
         retrieveDataNotifyTime();
 
-
-
-
     }
 
     public void retrieveDataPreferredTime() {
