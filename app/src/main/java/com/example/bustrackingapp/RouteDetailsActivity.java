@@ -4,20 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bustrackingapp.entities.RouteStop;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,11 +21,16 @@ import java.util.ArrayList;
 
 public class RouteDetailsActivity extends AppCompatActivity {
 
-    RadioGroup radioGroup;
-    RadioButton radioButton;
-    RecyclerView recyclerview;
-    MainAdapter mainAdapter;
-    Button continueDetails;
+    Button btnContinue;
+    Spinner spinnerRouteOne;
+    Spinner spinnerRouteTwo;
+    Spinner spinnerRouteThree;
+    DatabaseReference databaseReference;
+    ValueEventListener listener;
+    ArrayList<String> bustStop1;
+    ArrayList<String> bustStop2;
+    ArrayList<String> bustStop3;
+    ArrayAdapter<String> arrayAdapter;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -40,67 +38,110 @@ public class RouteDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route_details);
 
-        recyclerview =(RecyclerView)findViewById(R.id.routelist);
-        recyclerview.setLayoutManager(new LinearLayoutManager(this));
+        btnContinue = findViewById(R.id.continueDetails);
+        spinnerRouteOne = findViewById(R.id.route1);
+        spinnerRouteTwo = findViewById(R.id.route2);
+        spinnerRouteThree = findViewById(R.id.route3);
+
+        //route 1
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Route1");
+        bustStop1 = new ArrayList<>();
+        bustStop1.add("Select from route one ");
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, bustStop1);
+        spinnerRouteOne.setAdapter(arrayAdapter);
+        retrieveDataRouteOne();
+
+        //route 2
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Route2");
+        bustStop2 = new ArrayList<>();
+        bustStop2.add("Select from route two ");
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, bustStop2);
+        spinnerRouteTwo.setAdapter(arrayAdapter);
+        retrieveDataRouteTwo();
+
+        // route 3
 
 
+        databaseReference = FirebaseDatabase.getInstance().getReference("Route3");
+        bustStop3 = new ArrayList<>();
+        bustStop3.add("Select from route three ");
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, bustStop3);
+        spinnerRouteThree.setAdapter(arrayAdapter);
+        retrieveDataRouteThree();
 
-        radioGroup = findViewById(R.id.radioGroup);
-
-        FirebaseRecyclerOptions<RouteStop> options =
-                new FirebaseRecyclerOptions.Builder<RouteStop>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Route"), RouteStop.class)
-                        .build();
-        mainAdapter = new MainAdapter(options);
-        recyclerview.setAdapter(mainAdapter);
-
-        // Routes
-
-
-        // Preferred time and notify time
-
-        continueDetails = findViewById(R.id.continueDetails);
-
-        continueDetails.setOnClickListener(new View.OnClickListener() {
+        btnContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), TimeBusActivty.class));
+                startActivity(new Intent(getApplicationContext(), TimeBusActivity.class));
             }
         });
 
-        recyclerview.setOnClickListener(new View.OnClickListener() {
+    }
+
+    public void retrieveDataRouteOne() {
+
+        listener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                int radioId = radioGroup.getCheckedRadioButtonId();
-                radioButton = findViewById(radioId);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot item:dataSnapshot.getChildren()){
+                    bustStop1.add(item.getValue().toString());
+                }
+
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
 
 
-    public void onRadioButtonClicked(View v)
-    {
-        if(radioGroup == null)
-        {
-            System.out.println("is null " + radioGroup);
-        }
-        int radioId = radioGroup.getCheckedRadioButtonId();
-        radioButton = findViewById(radioId);
+    public void retrieveDataRouteTwo() {
 
-        Toast.makeText(this, "Select: " + radioButton.getText(), Toast.LENGTH_SHORT).show();
+        listener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                for(DataSnapshot item:dataSnapshot.getChildren()){
+                    bustStop2.add(item.getValue().toString());
+                }
+
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mainAdapter.startListening();
+    public void retrieveDataRouteThree() {
+
+        listener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot item:dataSnapshot.getChildren()){
+                    bustStop3.add(item.getValue().toString());
+                }
+
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mainAdapter.stopListening();
-    }
+
+
 }
