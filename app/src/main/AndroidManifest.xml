@@ -45,6 +45,8 @@
         <activity
             android:name=".entities.bus_mapping.MapBusActivity"
             android:exported="true"/>
+        <activity android:name=".StudentDriverActivity"
+            android:exported="true"/>
         <activity
             android:name=".DriverActivity"
             android:exported="true"/>

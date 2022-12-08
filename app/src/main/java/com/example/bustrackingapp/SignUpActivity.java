@@ -14,6 +14,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.bustrackingapp.entities.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -60,6 +61,9 @@ public class SignUpActivity extends AppCompatActivity {
                 String emails = email.getText().toString().trim();
                 String npasswrd = password.getText().toString().trim();
                 String fullnames =fullName.getText().toString().trim();
+                User user = new User();
+                user.setFullnames(fullnames);
+                user.setEmail(emails);
 
                 if (TextUtils.isEmpty(emails)) {
                     email.setError("email is required");
