@@ -16,4 +16,6 @@
     <string name="have_no_account">" pas de compte?"</string>
     <string name="Sign_up">Créer nouveau compte</string>
     <string name="Login">Se connecter</string>
+    <string name="switchFrench">francais</string>
+    <string name="English">anglais</string>
 </resources>

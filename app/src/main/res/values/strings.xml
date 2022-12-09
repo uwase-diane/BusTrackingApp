@@ -38,4 +38,6 @@
     <string name="location_perm_msg_desc">This app will need your location permission</string>
     <string name="text_me_button_text">Text Me</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="switchFrench">french</string>
+    <string name="English">English</string>
 </resources>

@@ -27,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText email, password;
     private Button loginBtn;
     private FirebaseAuth fAuth;
-    private Button switchLang;
+    private TextView switchLang;
+    private TextView switchLang2;
+
     private LanguageManager lang = new LanguageManager(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,16 @@ public class MainActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
 
         switchLang=findViewById(R.id.switchbutton);
+        switchLang2=findViewById(R.id.switchbutton2);
+
         switchLang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lang.updateResource("fr");
+                recreate();
+            }
+        });
+        switchLang2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 lang.updateResource("en");
