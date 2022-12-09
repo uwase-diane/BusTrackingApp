@@ -19,13 +19,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import SwitchLanguage.LanguageManager;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView signUpLink;
     private EditText email, password;
     private Button loginBtn;
     private FirebaseAuth fAuth;
-
+    private Button switchLang;
+    private LanguageManager lang = new LanguageManager(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
         password = findViewById(R.id.passwordInput);
         loginBtn = findViewById(R.id.loginbutton);
         fAuth = FirebaseAuth.getInstance();
+
+        switchLang=findViewById(R.id.switchbutton);
+        switchLang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lang.updateResource("en");
+                recreate();
+            }
+        });
 
         signUpLink = findViewById(R.id.signUpLink);
         signUpLink.setOnClickListener(new View.OnClickListener() {

@@ -37,20 +37,16 @@
         android:gravity="center"
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
-        <Button
-            android:layout_width="350dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="300dp"
-            android:backgroundTint="#6FCF97"
-            android:text="Student" />
+
 
         <Button
+            android:id="@+id/studentButton"
             android:layout_width="350dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_marginTop="250dp"
             android:backgroundTint="#6FCF97"
-            android:text="Driver" />
+            android:text="Student" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

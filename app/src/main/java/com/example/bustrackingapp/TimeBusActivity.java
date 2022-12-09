@@ -20,7 +20,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class TimeBusActivity extends AppCompatActivity {
+import RetrieveFactoryPattern.Retrieve;
+import RetrieveFactoryPattern.RetrieveFactory;
+
+public class TimeBusActivity extends AppCompatActivity   {
+
+
 
     Spinner pickUpTimeSpinner;
     Spinner notifyTimeSpinner;
@@ -59,15 +64,31 @@ public class TimeBusActivity extends AppCompatActivity {
         notifyTime = new ArrayList<>();
         notifyTime.add("When to notify you ");
 
+
+        RetrieveFactory shapeFactory = new RetrieveFactory();
+        Retrieve retrieve1 = shapeFactory.getData("timebus");
+
+                mapBus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), MapBusActivity.class));
+            }
+        });
+
+
         arrayAdapterNotifyTime = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, notifyTime);
 //        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         notifyTimeSpinner.setAdapter(arrayAdapterNotifyTime);
-        retrieveDataNotifyTime();
-
+        retrieve1.retrieveDataFeedback(arrayAdapterNotifyTime,notifyTime);
+        arrayAdapterNotifyTime.notifyDataSetChanged();
 
 
 
     }
+
+
+
+
 
     public void retrieveDataPreferredTime() {
 
@@ -90,30 +111,36 @@ public class TimeBusActivity extends AppCompatActivity {
     }
 
 
-    public void retrieveDataNotifyTime() {
+//    public void retrieveDataNotifyTime() {
+//
+//
+//    }
 
-        listener = databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot item:dataSnapshot.getChildren()){
-                    notifyTime.add(item.getValue().toString());
-                }
-
-                arrayAdapterNotifyTime.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        mapBus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), MapBusActivity.class));
-            }
-        });
-    }
+//    @Override
+//    public void retrieveDataFeedback() {
+//        listener = databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                for(DataSnapshot item:dataSnapshot.getChildren()){
+//                    notifyTime.add(item.getValue().toString());
+//                }
+//
+//                arrayAdapterNotifyTime.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//        mapBus.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(getApplicationContext(), MapBusActivity.class));
+//            }
+//        });
+//
+//    }
 }

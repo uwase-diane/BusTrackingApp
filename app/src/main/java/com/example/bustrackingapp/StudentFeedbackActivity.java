@@ -4,11 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,9 +18,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class StudentFeedbackActivity extends AppCompatActivity {
+import RetrieveFactoryPattern.Retrieve;
+import RetrieveFactoryPattern.RetrieveFactory;
+
+public class StudentFeedbackActivity extends AppCompatActivity  {
+
+
 
     Spinner feedback;
     DatabaseReference databaseReference;
@@ -44,7 +46,13 @@ public class StudentFeedbackActivity extends AppCompatActivity {
         student_feedback.add("Choose your answer");
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, student_feedback);
         feedback.setAdapter(arrayAdapter);
-        retrieveDataFeedback();
+
+        RetrieveFactory shapeFactory = new RetrieveFactory();
+        Retrieve retrieve1 = shapeFactory.getData("studentfeedback");
+        retrieve1.retrieveDataFeedback(arrayAdapter,student_feedback);
+        arrayAdapter.notifyDataSetChanged();
+
+
 
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -56,25 +64,26 @@ public class StudentFeedbackActivity extends AppCompatActivity {
 
     }
 
-    public void retrieveDataFeedback() {
-
-        listener = databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot item:dataSnapshot.getChildren()){
-                    student_feedback.add(item.getValue().toString());
-                }
-
-                arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
+//    @Override
+//    public void retrieveDataFeedback() {
+//
+//        listener = databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                for(DataSnapshot item:dataSnapshot.getChildren()){
+//                    student_feedback.add(item.getValue().toString());
+//                }
+//
+//                arrayAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//    }
 
 }
