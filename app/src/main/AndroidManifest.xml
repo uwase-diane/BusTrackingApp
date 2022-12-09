@@ -19,6 +19,7 @@
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBqHa8UZpxjtdSgSARvBed9FusMV4fGsqM"/>
 
 
+
         <activity
             android:name=".MapsActivity"
             android:exported="false"
@@ -34,10 +35,23 @@
         <activity
             android:name=".entities.bus_mapping.LocationPermissionRequest"
             android:exported="true"/>
+
+        <activity
+            android:name=".DriverActivity"
+            android:exported="true"/>
         <activity
             android:name=".SplashScreen"
             android:exported="true"
-            android:theme="@style/SplashScreen"/>
+            android:theme="@style/SplashScreen">
+
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".RouteDetailsActivity"
@@ -50,31 +64,18 @@
         <activity
             android:name=".entities.bus_mapping.MapBusActivity"
             android:exported="true"/>
-        <activity
-            android:name=".DriverActivity"
-            android:exported="true"/>
+
 
         <activity android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"/>
 
 
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

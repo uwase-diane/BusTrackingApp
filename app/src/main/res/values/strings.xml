@@ -12,10 +12,10 @@
     <string name="logged_in_successfully">"Login success"</string>
     <string name="Login_to_your_Account">"Login to your account"</string>
     <string name="password">password</string>
-    <string name="have_no_account">Don’t_have_an_account?</string>
+    <string name="have_no_account">Don’t_have_an_account? </string>
     <string name="Sign_up">signup</string>
     <string name="Login">login</string>
-    <string name="map_me_button_text">Map Me</string>
+    <string name="map_me_button_text">Map the bus</string>
     <string name="no_permission_warning">The application requires permission to access your location.</string>
     <string name="null_location_message">Not available</string>
     <string name="current_location">Bus Location</string>
