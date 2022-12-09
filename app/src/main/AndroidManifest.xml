@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BusTrackingApp"
         tools:targetApi="31">
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBqHa8UZpxjtdSgSARvBed9FusMV4fGsqM"/>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/api_key"/>
 
 
         <activity

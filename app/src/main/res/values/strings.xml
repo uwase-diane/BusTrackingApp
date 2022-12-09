@@ -36,4 +36,9 @@
     <string name="location_perm_msg_desc">This app will need your location permission</string>
     <string name="text_me_button_text">Text Me</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="route1">Route1</string>
+    <string name="route2">Route2</string>
+    <string name="route3">Route3</string>
+    <string name="bus_location">bus_location</string>
+    <string name = "api_key">AIzaSyBqHa8UZpxjtdSgSARvBed9FusMV4fGsqM</string>
 </resources>
