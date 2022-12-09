@@ -12,10 +12,10 @@
     <string name="logged_in_successfully">"Login success"</string>
     <string name="Login_to_your_Account">"Login to your account"</string>
     <string name="password">password</string>
-    <string name="have_no_account">Don’t_have_an_account?</string>
+    <string name="have_no_account">Don’t_have_an_account? </string>
     <string name="Sign_up">signup</string>
     <string name="Login">login</string>
-
+    <string name="map_me_button_text">Map the bus</string>
     <string name="no_permission_warning">The application requires permission to access your location.</string>
     <string name="null_location_message">Not available</string>
     <string name="current_location">Bus Location</string>
@@ -26,4 +26,16 @@
     <string name="default_location_text">(15, -30.6)</string>
     <string name="english">english</string>
     <string name="french">french</string>
+    <string name="longitude_label_text">Longitude:</string>
+    <string name="default_longitude">1.125593</string>
+    <string name="default_latitude">1.125593</string>
+    <string name="latitude_label_text">Latitude:</string>
+    <string name="message"> Hey! the current bus coordinates are: \nLatitude = %f, \nLongitude  = %f. </string>
+    <string name="no_coordinates">¯\_(⊙︿⊙)_/¯</string>
+    <string name="no_thanks_text">No thanks</string>
+    <string name="continue_text">Continue</string>
+    <string name="location_not_enabled">Location not enable. Please continue to enable.</string>
+    <string name="location_perm_msg_desc">This app will need your location permission</string>
+    <string name="text_me_button_text">Text Me</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

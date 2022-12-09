@@ -1,14 +1,25 @@
 package com.example.bustrackingapp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.bustrackingapp.entities.Time;
+import com.example.bustrackingapp.entities.bus_mapping.MapBusActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,48 +28,89 @@ public class DriverActivity extends AppCompatActivity {
 
     Spinner selectRoute;
     Spinner selectTime;
+    DatabaseReference databaseReference;
+    ValueEventListener listener;
+    ArrayList<String> time;
+    ArrayAdapter<String> arrayAdapterTime;
+    ArrayList<String> route;
+    ArrayAdapter<String> arrayAdapteRoute;
+    Button btnSave;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver);
+
         selectRoute = findViewById(R.id.routes);
-        List<String> route = new ArrayList<>();
+        selectTime = findViewById(R.id.times);
+        btnSave = findViewById(R.id.btnSave);
+
+        // route
+        databaseReference = FirebaseDatabase.getInstance().getReference("Routes");
+        route = new ArrayList<>();
         route.add("Select your route ");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, route);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        selectRoute.setAdapter(arrayAdapter);
-        selectRoute.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        arrayAdapteRoute = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, route);
+        selectRoute.setAdapter(arrayAdapteRoute);
+        retrieveDataRoutes();
+
+        // time
+
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("PreferredTime");
+        time = new ArrayList<>();
+        time.add("Select your preferred time ");
+        arrayAdapterTime = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, time);
+        selectTime.setAdapter(arrayAdapterTime);
+        retrieveDataPreferredTime();
+
+    }
+
+
+    public void retrieveDataRoutes() {
+
+        listener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (parent.getItemAtPosition(position).equals("Choose from list")){
-                }else {
-                    String item = parent.getItemAtPosition(position).toString();
-                    Toast.makeText(parent.getContext(),"Selected: " +item, Toast.LENGTH_SHORT).show();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot item:dataSnapshot.getChildren()){
+                    route.add(item.getValue().toString());
                 }
+
+                arrayAdapteRoute.notifyDataSetChanged();
             }
+
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
+    public void retrieveDataPreferredTime() {
+
+        listener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot item:dataSnapshot.getChildren()){
+                    time.add(item.getValue().toString());
+                }
+
+                arrayAdapterTime.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
-        selectTime = findViewById(R.id.times);
-        List<String> time = new ArrayList<>();
-        time.add("Select your time");
-        ArrayAdapter<String> arrayAdapterNotifyTime = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, time);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        selectTime.setAdapter(arrayAdapter);
-        selectTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (parent.getItemAtPosition(position).equals("Choose from list")){
-                }else {
-                    String item = parent.getItemAtPosition(position).toString();
-                    Toast.makeText(parent.getContext(),"Selected: " +item, Toast.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), MapBusActivity.class));
             }
         });
     }

@@ -26,77 +26,84 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Objects;
 
 
-public class MapBusFragment extends DialogFragment implements OnMapReadyCallback
+public class MapBusFragment extends Fragment implements OnMapReadyCallback
 {
-    private GoogleMap map;
     private Location location;
-    private Button closeBtn;
+    SupportMapFragment supportMapFragment;
 
-    private MapBusFragment(Location location) {
+    public MapBusFragment(Location location, SupportMapFragment supportMapFragment)
+    {
+        super();
         this.location = location;
+        this.supportMapFragment = supportMapFragment;
     }
 
-    static MapBusFragment newInstance(Location location) {
-        return new MapBusFragment(location);
+    // zero argument constructor
+    public MapBusFragment()
+    {
+        super();
     }
+
+    public static MapBusFragment newInstance(Location location, SupportMapFragment supportMapFragment)
+    {
+        return new MapBusFragment(location, supportMapFragment);
+    }
+
+
+    public static MapBusFragment newInstance()
+    {
+        return new MapBusFragment();
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState)
+    {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.activity_map_bus, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_google_map, container, false);
 
-        closeBtn = (Button) rootView.findViewById(R.id.btn_close_dialog);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                getDialog().dismiss();
-                dismiss();
-            }
-        });
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        //get handle of SupportMapFragment
+        supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        if (supportMapFragment != null)
+        {
+            supportMapFragment.getMapAsync(this);
+        }
 
         return rootView;
     }
 
     @Override
-    public void onDestroyView() {
+    public void onDestroyView()
+    {
         super.onDestroyView();
-        assert getFragmentManager() != null;
-        Fragment fragment = (getFragmentManager().findFragmentById(R.id.map));
-        FragmentTransaction ft = Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction();
-        ft.remove(fragment);
-        ft.commit();
     }
 
-    @SuppressLint("SuspiciousIndentation")
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
+    public void onMapReady(GoogleMap _googleMap)
+    {
         if (ActivityCompat.checkSelfPermission(getActivity(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getActivity(),
-                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     1);
             return;
         }
 
-        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        map.setMyLocationEnabled(true);
-        map.getUiSettings().setMyLocationButtonEnabled(true);
-        map.getUiSettings().setZoomControlsEnabled(true);
+        _googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        _googleMap.setMyLocationEnabled(true);
+        _googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        _googleMap.getUiSettings().setZoomControlsEnabled(true);
 
         LatLng latLng = new LatLng(-34, 151);
-        if (location != null) {
-            latLng=new LatLng(location.getLatitude(),location.getLongitude());
-        }
+        if (location != null)
+            latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        map.addMarker(new MarkerOptions().position(latLng));
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+        _googleMap.addMarker(new MarkerOptions().position(latLng));
+        _googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                 latLng, 17.0f));
     }
 }

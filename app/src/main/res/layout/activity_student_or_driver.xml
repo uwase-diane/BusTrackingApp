@@ -4,28 +4,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
         <TextView
             android:id="@+id/text_view_id"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto"
-            android:text="Are you a student or a driver"
+            android:layout_width="wrap_content"
+
+            android:text="Log In"
+            android:textSize="20sp"
             android:textColor="#444444"
-            android:textSize="20sp" />
+            android:fontFamily="@font/roboto"
+            />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
 
         <Button
 
             android:id="@+id/driverButton"
             android:layout_width="350dp"
             android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="250dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="200dp"
+
             android:backgroundTint="#6FCF97"
             android:text="Driver" />
 
@@ -37,16 +49,39 @@
         android:gravity="center"
         android:orientation="vertical"
         tools:ignore="MissingConstraints">
-
-
         <Button
             android:id="@+id/studentButton"
             android:layout_width="350dp"
             android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="250dp"
             android:backgroundTint="#6FCF97"
             android:text="Student" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:textAlignment="center"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="170dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/have_no_account"
+            android:textColor="#444444" />
+
+        <TextView
+            android:id="@+id/signUpLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="170dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/Sign_up"
+            android:textColor="#6FCF97" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
