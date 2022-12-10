@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BusTrackingApp"
         tools:targetApi="31">
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBqHa8UZpxjtdSgSARvBed9FusMV4fGsqM"/>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/api_key"/>
 
 
 
@@ -26,6 +26,10 @@
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".StudentsListActivity"
+            android:exported="true"
+            />
+        <activity
+            android:name=".entities.bus_mapping.DriverMapMeActivity"
             android:exported="true"
             />
 
@@ -70,7 +74,9 @@
         <activity
             android:name=".entities.bus_mapping.MapBusActivity"
             android:exported="true"/>
-
+        <activity
+            android:name=".entities.bus_mapping.StudentBusActivity"
+            android:exported="true"/>
 
         <activity android:name=".MainActivity"
             android:exported="true"/>

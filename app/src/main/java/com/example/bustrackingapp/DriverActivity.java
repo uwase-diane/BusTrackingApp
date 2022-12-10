@@ -4,17 +4,14 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.bustrackingapp.entities.Time;
-import com.example.bustrackingapp.entities.bus_mapping.MapBusActivity;
+import com.example.bustrackingapp.entities.bus_mapping.DriverMapMeActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DriverActivity extends AppCompatActivity {
 
@@ -110,7 +106,10 @@ public class DriverActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), MapBusActivity.class));
+                Intent intent = new Intent(view.getContext(), DriverMapMeActivity.class);
+                intent.putExtra("user","bustudent");
+                startActivity(intent);
+//                startActivity(new Intent(getApplicationContext(), DriverMapMeActivity.class));
             }
         });
     }

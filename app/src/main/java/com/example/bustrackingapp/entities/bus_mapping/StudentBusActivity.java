@@ -1,8 +1,6 @@
 package com.example.bustrackingapp.entities.bus_mapping;
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,15 +23,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import com.example.bustrackingapp.R;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
 
 
-public class MapBusActivity extends AppCompatActivity
+public class StudentBusActivity extends AppCompatActivity
 {
     private Location location;
     private LocationManager locationManager;
@@ -103,10 +105,10 @@ public class MapBusActivity extends AppCompatActivity
     {
         Log.d(TAG, "onClickApprovePermissionRequest()");
 
-        ActivityCompat.requestPermissions(
-                this,
-                new String[]{Manifest.permission.SEND_SMS},
-                SMS_PERMISSION_REQUEST_CODE);
+//        ActivityCompat.requestPermissions(
+//                this,
+//                new String[]{Manifest.permission.SEND_SMS},
+//                SMS_PERMISSION_REQUEST_CODE);
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -128,7 +130,56 @@ public class MapBusActivity extends AppCompatActivity
 
         //get handle for current location including latitude and longitude
         location = this.getCurrentLocation();
+//        location.setLatitude(-1.9443);
+//        location.setLongitude(30.09497);
+        //getting location from database
+        Query longitude_query = FirebaseDatabase.getInstance().getReference().child(getString(R.string.bus_location))
+                .child(getString(R.string.route_1))
+                .child(getString(R.string.location))
+                .orderByKey().equalTo(getString(R.string.longitude));;
+        Query latitude_query = FirebaseDatabase.getInstance().getReference().child(getString(R.string.bus_location))
+                .child(getString(R.string.route_1))
+                .child(getString(R.string.location))
+                .orderByKey().equalTo(getString(R.string.latitude));
+//        System.out.println("location latitude: "+latitude_query);
+        longitude_query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+//                    location = (Location)dataSnapshot.getValue();
+                    System.out.println("location longitude: "+dataSnapshot.getValue());
 
+                    location.setLongitude(Double.parseDouble(dataSnapshot.getValue().toString()));
+                    Log.d(TAG, "onDataChange: (location retrieval from db)"+location.toString());
+                    /////////////////////you need to finish this data reading form firebase
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        latitude_query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+//                    location = (Location)dataSnapshot.getValue();
+                    System.out.println("location latitude: "+dataSnapshot.getValue());
+
+                    location.setLatitude(Double.parseDouble(dataSnapshot.getValue().toString()));
+                    Log.d(TAG, "onDataChange: (location retrieval from db)"+location.toString());
+                    /////////////////////you need to finish this data reading form firebase
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         //track the location as device moves
         registerForLocationUpdates();
 
@@ -267,26 +318,19 @@ public class MapBusActivity extends AppCompatActivity
         }
 
     }
-
-
-
-
-
-
-
-
-
-
     private class LocationUpdatesListener implements LocationListener
     {
         @Override
         public void onLocationChanged(@NonNull Location _location)
         {
+
             Log.d(TAG, "onLocationChanged");
 
             if (_location != null)
                 location = _location;
-            viewMyLocation();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                viewMyLocation();
+            }
         }
 
         @Override

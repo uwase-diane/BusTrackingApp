@@ -116,18 +116,6 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
 
-//        registerButton =  findViewById(R.id.signUp);
-//        registerButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                signUpActivity();
-//            }
-//        });
-//    }
-//
-//    public void signUpActivity() {
-//        Intent intent = new Intent(this, MainActivity.class);
-//        startActivity(intent);
-//    }
+
     }
 }
