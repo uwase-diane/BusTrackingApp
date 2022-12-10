@@ -52,7 +52,7 @@ public class TimeBusActivity extends AppCompatActivity   {
         pickUpTimeSpinner = findViewById(R.id.backup_time);
         databaseReference = FirebaseDatabase.getInstance().getReference("PreferredTime");
         time = new ArrayList<>();
-        time.add("Select your preferred time ");
+        time.add(getString(R.string.select_your_preferred_time));
        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, time);
         pickUpTimeSpinner.setAdapter(arrayAdapter);
         retrieveDataPreferredTime();
@@ -63,7 +63,7 @@ public class TimeBusActivity extends AppCompatActivity   {
         notifyTimeSpinner = findViewById(R.id.notify_time);
         databaseReference = FirebaseDatabase.getInstance().getReference("NotifyTime");
         notifyTime = new ArrayList<>();
-        notifyTime.add("When to notify you ");
+        notifyTime.add(getString(R.string.when_to_notify_you));
 
 
         RetrieveFactory shapeFactory = new RetrieveFactory();

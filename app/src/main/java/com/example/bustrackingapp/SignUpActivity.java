@@ -66,10 +66,10 @@ public class SignUpActivity extends AppCompatActivity {
                 user.setEmail(emails);
 
                 if (TextUtils.isEmpty(emails)) {
-                    email.setError("email is required");
+                    email.setError(getString(R.string.email_is_required));
                 }
                 if (TextUtils.isEmpty(npasswrd)) {
-                    password.setError("password is required");
+                    password.setError(getString(R.string.password_is_required));
                 }
                 if (npasswrd.length() < 6) {
                     password.setError((getString(R.string.invalid_password)));
@@ -84,7 +84,7 @@ public class SignUpActivity extends AppCompatActivity {
                             users.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    Toast.makeText(SignUpActivity.this,"verification email has been sent",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignUpActivity.this,getString(R.string.verification_email_has_been_sent),Toast.LENGTH_SHORT).show();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override

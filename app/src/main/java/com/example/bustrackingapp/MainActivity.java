@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private TextView switchLang;
     private TextView switchLang2;
+
 
     private LanguageManager lang = new LanguageManager(this);
     @Override
@@ -76,17 +78,12 @@ public class MainActivity extends AppCompatActivity {
                 User user = new User();
                 user.setEmail(emails);
                 user.setPassword(npasswrd);
-                System.out.println("test test "+user.getEmail());
-                System.out.println("test test "+user.getPassword());
-//                System.out.println("test test "+user.getFullnames());
-
-
 
                 if (TextUtils.isEmpty(emails)) {
-                    email.setError("email is required");
+                    email.setError(getString(R.string.email_is_required));
                 }
                 if (TextUtils.isEmpty(npasswrd)) {
-                    password.setError("password is required");
+                    password.setError(getString(R.string.password_is_required));
                 }
                 if (npasswrd.length() < 6) {
                     password.setError(getString(R.string.invalid_password));
@@ -125,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
+
 
 
     public void signUp() {

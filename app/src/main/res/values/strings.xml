@@ -51,4 +51,17 @@
 
     <string name="channel_name">channel Name</string>
     <string name="channel_description">channel description</string>
+    <string name="email_is_required">email_is_required</string>
+    <string name="password_is_required">password_is_required</string>
+    <string name="Select_your_route">Select_your_route</string>
+    <string name="Select_your_departure_time">Select_your_departure_time</string>
+    <string name="Marker_in_Sydney">Marker_in_Sydney</string>
+    <string name="verification_email_has_been_sent">verification_email_has_been_sent</string>
+    <string name="choose_your_answer">choose_your_answer</string>
+    <string name="select_your_preferred_time">select_your_preferred_time</string>
+    <string name="when_to_notify_you">when_to_notify_you</string>
+    <string name="default_toast_message">default_toast_message</string>
+    <string name="Start_LocationPermissionRequest_as_there_is_no_permission_to_get_location">LocationPermissionRequest</string>
+    <string name="onCreate_LocationPermissionRequest">onCreate_LocationPermissionRequest</string>
+    <string name="permission_had_previously_been_granted_for_location_access">permission_had_previously_been_granted_for_location_access</string>
 </resources>

@@ -17,6 +17,7 @@ import android.os.Parcelable;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,7 +28,13 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.bustrackingapp.MainActivity;
+import com.example.bustrackingapp.MapsActivity;
 import com.example.bustrackingapp.R;
+import com.example.bustrackingapp.RouteDetailsActivity;
+import com.example.bustrackingapp.StudentDriverActivity;
+import com.example.bustrackingapp.StudentFeedbackActivity;
+import com.example.bustrackingapp.TimeBusActivity;
 import com.google.android.gms.maps.SupportMapFragment;
 
 import java.util.Locale;
@@ -49,6 +56,10 @@ public class MapBusActivity extends AppCompatActivity
 
     // toast notification
     private Toast toastObj;
+
+    // swipe
+
+    float x1,x2,y1,y2;
 
 
     // called when mainActivity is first created.
@@ -98,6 +109,31 @@ public class MapBusActivity extends AppCompatActivity
             loadGoogleMapFragment();
         });
 
+    }
+    // swipe
+
+    public boolean onTouchEvent(MotionEvent touchEvent) {
+        switch (touchEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                x1 = touchEvent.getX();
+                y1 = touchEvent.getY();
+                break;
+
+            case MotionEvent.ACTION_UP:
+                x2 = touchEvent.getX();
+                y1 = touchEvent.getY();
+
+                if (x1 < x2) {
+                    Intent i = new Intent(MapBusActivity.this, TimeBusActivity.class);
+                    startActivity(i);
+                } else if (x1 > x2) {
+                    Intent i = new Intent(MapBusActivity.this, StudentFeedbackActivity.class);
+                    startActivity(i);
+                }
+                break;
+        }
+
+        return false;
     }
     public void onClickApprovePermissionRequest(View view)
     {
@@ -383,5 +419,7 @@ public class MapBusActivity extends AppCompatActivity
         super.onRestoreInstanceState(savedInstanceState);
         googleMapFragment = savedInstanceState.getParcelable("obj");
     }
+
+
 
 }

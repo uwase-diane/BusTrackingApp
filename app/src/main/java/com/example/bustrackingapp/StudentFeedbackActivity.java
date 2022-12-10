@@ -43,7 +43,7 @@ public class StudentFeedbackActivity extends AppCompatActivity  {
         feedback = findViewById(R.id.feedback);
         databaseReference = FirebaseDatabase.getInstance().getReference("Feedback");
         student_feedback = new ArrayList<>();
-        student_feedback.add("Choose your answer");
+        student_feedback.add(getString(R.string.choose_your_answer));
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, student_feedback);
         feedback.setAdapter(arrayAdapter);
 

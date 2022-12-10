@@ -45,7 +45,7 @@ public class DriverActivity extends AppCompatActivity {
         // route
         databaseReference = FirebaseDatabase.getInstance().getReference("Routes");
         route = new ArrayList<>();
-        route.add("Select your route ");
+        route.add(getString(R.string.Select_your_route ));
         arrayAdapteRoute = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, route);
         selectRoute.setAdapter(arrayAdapteRoute);
         retrieveDataRoutes();
@@ -55,7 +55,7 @@ public class DriverActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("PreferredTime");
         time = new ArrayList<>();
-        time.add("Select your departure time ");
+        time.add(getString(R.string.Select_your_departure_time));
         arrayAdapterTime = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, time);
         selectTime.setAdapter(arrayAdapterTime);
         retrieveDataPreferredTime();
