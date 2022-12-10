@@ -24,6 +24,8 @@
     <string name="map_me">Map Me</string>
     <string name="text_me">Text Me</string>
     <string name="default_location_text">(15, -30.6)</string>
+    <string name="english">english</string>
+    <string name="french">french</string>
     <string name="longitude_label_text">Longitude:</string>
     <string name="default_longitude">1.125593</string>
     <string name="default_latitude">1.125593</string>
@@ -43,4 +45,6 @@
     <string name="bus_location">bus_location</string>
     <string name="location">location</string>
     <string name = "api_key">AIzaSyBqHa8UZpxjtdSgSARvBed9FusMV4fGsqM</string>
+    <string name="switchFrench">french</string>
+    <string name="English">English</string>
 </resources>

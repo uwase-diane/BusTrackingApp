@@ -19,7 +19,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class RouteDetailsActivity extends AppCompatActivity {
+import RetrieveFactoryPattern.Retrieve;
+import RetrieveFactoryPattern.RetrieveFactory;
+
+public class RouteDetailsActivity extends AppCompatActivity    {
+
+
 
     Button btnContinue;
     Spinner spinnerRouteOne;
@@ -31,6 +36,9 @@ public class RouteDetailsActivity extends AppCompatActivity {
     ArrayList<String> bustStop2;
     ArrayList<String> bustStop3;
     ArrayAdapter<String> arrayAdapter;
+
+
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -45,12 +53,20 @@ public class RouteDetailsActivity extends AppCompatActivity {
 
         //route 1
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Route1");
+         databaseReference = FirebaseDatabase.getInstance().getReference("Route1");
         bustStop1 = new ArrayList<>();
         bustStop1.add("Select from route one ");
+        RetrieveFactory shapeFactory = new RetrieveFactory();
+        Retrieve retrieve1 = shapeFactory.getData("routeDetails");
+
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, bustStop1);
         spinnerRouteOne.setAdapter(arrayAdapter);
-        retrieveDataRouteOne();
+        retrieve1.retrieveDataFeedback(arrayAdapter, bustStop1);
+        arrayAdapter.notifyDataSetChanged();
+
+//        retrieveDataRouteOne();
+
+
 
         //route 2
 
@@ -80,26 +96,46 @@ public class RouteDetailsActivity extends AppCompatActivity {
 
     }
 
-    public void retrieveDataRouteOne() {
+//    public void retrieveDataRouteOne() {
+//
+//        listener = databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                for(DataSnapshot item:dataSnapshot.getChildren()){
+//                    bustStop1.add(item.getValue().toString());
+//                }
+//
+//                arrayAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
+//    @Override
+//    public void retrieveDataFeedback() {
+//        listener = databaseReference.addValueEventListener(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                for(DataSnapshot item:dataSnapshot.getChildren()){
+//                    bustStop1.add(item.getValue().toString());
+//                }
+//
+//                arrayAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
-        listener = databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot item:dataSnapshot.getChildren()){
-                    bustStop1.add(item.getValue().toString());
-                }
-
-                arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
+  //  }
 
     public void retrieveDataRouteTwo() {
 

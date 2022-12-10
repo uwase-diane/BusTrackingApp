@@ -83,4 +83,5 @@
             android:text="@string/Sign_up"
             android:textColor="#6FCF97" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
