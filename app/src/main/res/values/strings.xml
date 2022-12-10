@@ -19,8 +19,8 @@
     <string name="no_permission_warning">The application requires permission to access your location.</string>
     <string name="null_location_message">Not available</string>
     <string name="current_location">Bus Location</string>
-    <string name="latitude">Latitude</string>
-    <string name="longitude">Longitude</string>
+    <string name="latitude">latitude</string>
+    <string name="longitude">longitude</string>
     <string name="map_me">Map Me</string>
     <string name="text_me">Text Me</string>
     <string name="default_location_text">(15, -30.6)</string>
@@ -39,6 +39,8 @@
     <string name="route1">Route1</string>
     <string name="route2">Route2</string>
     <string name="route3">Route3</string>
+    <string name="route_1">route_1</string>
     <string name="bus_location">bus_location</string>
+    <string name="location">location</string>
     <string name = "api_key">AIzaSyBqHa8UZpxjtdSgSARvBed9FusMV4fGsqM</string>
 </resources>

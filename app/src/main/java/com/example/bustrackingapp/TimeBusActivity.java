@@ -11,7 +11,7 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.bustrackingapp.entities.bus_mapping.MapBusActivity;
+import com.example.bustrackingapp.entities.bus_mapping.StudentBusActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -109,7 +109,7 @@ public class TimeBusActivity extends AppCompatActivity {
         mapBus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), MapBusActivity.class));
+                startActivity(new Intent(getApplicationContext(), StudentBusActivity.class));
             }
         });
     }

@@ -26,7 +26,6 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.bustrackingapp.R;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -68,7 +67,7 @@ public class DriverMapMeActivity extends AppCompatActivity
         googleMapFragment = MapBusFragment.newInstance();
 
         checkLocationServices(savedInstanceState);
-        setContentView(R.layout.activity_map_main);
+        setContentView(R.layout.driver_activity_map_main);
 
 
         // find the TextViews for longitude and latitude
@@ -243,7 +242,8 @@ public class DriverMapMeActivity extends AppCompatActivity
             // update views
             longitudeTextView.setText(String.valueOf(location.getLongitude()));
             latudeTextView.setText(String.valueOf(location.getLatitude()));
-        } else
+        }
+        else
         {
             // no coordinates set
             showToastMsg("No Coordinates to Display!");
@@ -262,9 +262,16 @@ public class DriverMapMeActivity extends AppCompatActivity
         {
 //            if() niba shoferi yahisemo route 1, location data ze zijye muri ntuza yayo
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-            reference.child(getString(R.string.route1))
-                    .child(getString(R.string.bus_location))
+            // save location in firebase
+            reference.child(getString(R.string.bus_location))
+                    .child(getString(R.string.route_1))
+                    .child(getString(R.string.location))
+                    .setValue(null);
+            reference.child(getString(R.string.bus_location))
+                    .child(getString(R.string.route_1))
+                    .child(getString(R.string.location))
                     .setValue(location);
+
             getSupportFragmentManager().beginTransaction().replace(R.id.map_location, googleMapFragment).commit();
             showToastMsg("See your current location on Google Map!");
         } else
@@ -274,15 +281,6 @@ public class DriverMapMeActivity extends AppCompatActivity
 
     }
 
-
-
-
-
-
-
-
-
-
     private class LocationUpdatesListener implements LocationListener
     {
         @Override
@@ -291,7 +289,20 @@ public class DriverMapMeActivity extends AppCompatActivity
             Log.d(TAG, "onLocationChanged");
 
             if (_location != null)
+            {
                 location = _location;
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                // save location in firebase
+                reference.child(getString(R.string.bus_location))
+                        .child(getString(R.string.route_1))
+                        .child(getString(R.string.location))
+                        .setValue(null);
+                reference.child(getString(R.string.bus_location))
+                        .child(getString(R.string.route_1))
+                        .child(getString(R.string.location))
+                        .setValue(location);
+            }
+
             viewMyLocation();
         }
 

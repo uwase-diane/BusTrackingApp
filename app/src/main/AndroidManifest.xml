@@ -28,6 +28,10 @@
             android:name=".StudentsListActivity"
             android:exported="true"
             />
+        <activity
+            android:name=".entities.bus_mapping.DriverMapMeActivity"
+            android:exported="true"
+            />
 
         <activity
             android:name=".SignUpActivity"
@@ -62,7 +66,7 @@
             android:name=".TimeBusActivity"
             android:exported="true"/>
         <activity
-            android:name=".entities.bus_mapping.MapBusActivity"
+            android:name=".entities.bus_mapping.StudentBusActivity"
             android:exported="true"/>
 
 
