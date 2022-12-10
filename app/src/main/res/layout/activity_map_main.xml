@@ -120,16 +120,15 @@
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="300dp"
                 android:layout_height="80dp"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
+                android:layout_marginRight="100dp"
                 android:backgroundTint="#6FCF97"
                 android:padding="10dp"
-                android:layout_gravity="center"
-                android:layout_marginRight="100dp"
                 android:text="@string/map_me_button_text"
-                android:textColor="#ffffff"
-              />
+                android:textColor="#ffffff" />
 
-<!--            <TextView-->
+            <!--            <TextView-->
 <!--                android:id="@+id/textView1"-->
 <!--                android:layout_width="0dp"-->
 <!--                android:layout_height="wrap_content"-->

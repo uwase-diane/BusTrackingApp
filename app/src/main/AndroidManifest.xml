@@ -39,6 +39,7 @@
         <activity
             android:name=".DriverActivity"
             android:exported="true"/>
+
         <activity
             android:name=".SplashScreen"
             android:exported="true"
@@ -56,6 +57,11 @@
         <activity
             android:name=".RouteDetailsActivity"
             android:exported="true"/>
+
+        <activity
+            android:name=".BusStopActivity"
+            android:exported="true"
+            />
         <activity android:name=".StudentDriverActivity"
             android:exported="true"/>
         <activity

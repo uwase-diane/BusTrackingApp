@@ -18,7 +18,7 @@ public class RouteDetails implements Retrieve {
 
     @Override
     public void retrieveDataFeedback(ArrayAdapter<String> arrayAdapter,ArrayList<String> bustStop1) {
-        databaseReference = FirebaseDatabase.getInstance().getReference("Route1");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Routes");
         ValueEventListener  listener = databaseReference.addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -28,7 +28,7 @@ public class RouteDetails implements Retrieve {
 //                    bustStop1 = new ArrayList<>();
                     bustStop1.add(item.getValue().toString());
                 }
-
+                System.out.println("-----------------------<<<<<<<" + bustStop1.size());
 
 //                arrayAdapter.notifyDataSetChanged();
             }

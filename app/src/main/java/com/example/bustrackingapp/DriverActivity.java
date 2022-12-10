@@ -59,7 +59,7 @@ public class DriverActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("PreferredTime");
         time = new ArrayList<>();
-        time.add("Select your preferred time ");
+        time.add("Select your departure time ");
         arrayAdapterTime = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, time);
         selectTime.setAdapter(arrayAdapterTime);
         retrieveDataPreferredTime();
