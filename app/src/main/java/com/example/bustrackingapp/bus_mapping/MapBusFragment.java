@@ -22,6 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapBusFragment extends Fragment implements OnMapReadyCallback
 {
+    private GoogleMap g_map;
     private Location location;
     SupportMapFragment supportMapFragment;
 
@@ -76,6 +77,7 @@ public class MapBusFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap _googleMap)
     {
+        g_map = _googleMap;
         if (ActivityCompat.checkSelfPermission(getActivity(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getActivity(),
@@ -99,5 +101,20 @@ public class MapBusFragment extends Fragment implements OnMapReadyCallback
         _googleMap.addMarker(new MarkerOptions().position(latLng));
         _googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                 latLng, 17.0f));
+    }
+    public void mapBusOnMap(Location locate)
+    {
+        if(g_map == null)
+        {
+            return;
+        }
+        LatLng latLng = new LatLng(-34, 151);
+        if (locate != null)
+            latLng = new LatLng(locate.getLatitude(), locate.getLongitude());
+        g_map.clear();
+        g_map.addMarker(new MarkerOptions().position(latLng));
+        g_map.animateCamera(CameraUpdateFactory.newLatLngZoom(
+                latLng, 17.0f));
+
     }
 }

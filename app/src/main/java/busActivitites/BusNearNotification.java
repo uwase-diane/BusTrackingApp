@@ -12,6 +12,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.bustrackingapp.R;
 import com.example.bustrackingapp.bus_mapping.MapBusActivity;
+import com.example.bustrackingapp.bus_mapping.StudentBusActivity;
 
 public class BusNearNotification {
 
@@ -19,7 +20,7 @@ public class BusNearNotification {
 
         String CHANNEL_ID = "Bus notification";
 
-        Intent intent = new Intent(context, MapBusActivity.class);
+        Intent intent = new Intent(context, StudentBusActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
 //        Intent snoozeIntent = new Intent(this, MyBroadcastReceiver.class);
