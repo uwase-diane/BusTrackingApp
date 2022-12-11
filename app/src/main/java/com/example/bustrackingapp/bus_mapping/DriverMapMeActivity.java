@@ -1,7 +1,7 @@
-package com.example.bustrackingapp.entities.bus_mapping;
+package com.example.bustrackingapp.bus_mapping;
+
 import android.Manifest;
 import android.app.AlertDialog;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,23 +19,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.bustrackingapp.R;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
 
-
-public class StudentBusActivity extends AppCompatActivity
+public class DriverMapMeActivity extends AppCompatActivity
 {
     private Location location;
     private LocationManager locationManager;
@@ -47,7 +43,7 @@ public class StudentBusActivity extends AppCompatActivity
     private boolean firstTimePermissionEnabled = true;
     private static final int SMS_PERMISSION_REQUEST_CODE = 12;
     // TAG for log
-    private final String TAG = "MapBusActivity";
+    private final String TAG = "DriverMapMeActivity";
 
     // toast notification
     private Toast toastObj;
@@ -63,7 +59,7 @@ public class StudentBusActivity extends AppCompatActivity
 
         // initialize toast object
         toastObj = Toast.makeText(getApplicationContext(),
-                "Default toast message", Toast.LENGTH_SHORT);
+                getString(R.string.default_toast_message), Toast.LENGTH_SHORT);
         toastObj.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
 
         super.onCreate(savedInstanceState);
@@ -71,7 +67,7 @@ public class StudentBusActivity extends AppCompatActivity
         googleMapFragment = MapBusFragment.newInstance();
 
         checkLocationServices(savedInstanceState);
-        setContentView(R.layout.student_activity_map_main);
+        setContentView(R.layout.driver_activity_map_main);
 
 
         // find the TextViews for longitude and latitude
@@ -92,7 +88,9 @@ public class StudentBusActivity extends AppCompatActivity
             if (!checkForLocationPermission())
             {
                 Log.d(TAG, "Start LocationPermissionRequest as there is no permission to get location");
+
                 Intent startIntent = new Intent(this, LocationPermissionRequest.class);
+
                 startActivityForResult(startIntent, 0);
             }
 
@@ -105,10 +103,10 @@ public class StudentBusActivity extends AppCompatActivity
     {
         Log.d(TAG, "onClickApprovePermissionRequest()");
 
-//        ActivityCompat.requestPermissions(
-//                this,
-//                new String[]{Manifest.permission.SEND_SMS},
-//                SMS_PERMISSION_REQUEST_CODE);
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.SEND_SMS},
+                SMS_PERMISSION_REQUEST_CODE);
     }
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -130,56 +128,7 @@ public class StudentBusActivity extends AppCompatActivity
 
         //get handle for current location including latitude and longitude
         location = this.getCurrentLocation();
-//        location.setLatitude(-1.9443);
-//        location.setLongitude(30.09497);
-        //getting location from database
-        Query longitude_query = FirebaseDatabase.getInstance().getReference().child(getString(R.string.bus_location))
-                .child(getString(R.string.route_1))
-                .child(getString(R.string.location))
-                .orderByKey().equalTo(getString(R.string.longitude));;
-        Query latitude_query = FirebaseDatabase.getInstance().getReference().child(getString(R.string.bus_location))
-                .child(getString(R.string.route_1))
-                .child(getString(R.string.location))
-                .orderByKey().equalTo(getString(R.string.latitude));
-//        System.out.println("location latitude: "+latitude_query);
-        longitude_query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren())
-                {
-//                    location = (Location)dataSnapshot.getValue();
-                    System.out.println("location longitude: "+dataSnapshot.getValue());
 
-                    location.setLongitude(Double.parseDouble(dataSnapshot.getValue().toString()));
-                    Log.d(TAG, "onDataChange: (location retrieval from db)"+location.toString());
-                    /////////////////////you need to finish this data reading form firebase
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        latitude_query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren())
-                {
-//                    location = (Location)dataSnapshot.getValue();
-                    System.out.println("location latitude: "+dataSnapshot.getValue());
-
-                    location.setLatitude(Double.parseDouble(dataSnapshot.getValue().toString()));
-                    Log.d(TAG, "onDataChange: (location retrieval from db)"+location.toString());
-                    /////////////////////you need to finish this data reading form firebase
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
         //track the location as device moves
         registerForLocationUpdates();
 
@@ -293,7 +242,8 @@ public class StudentBusActivity extends AppCompatActivity
             // update views
             longitudeTextView.setText(String.valueOf(location.getLongitude()));
             latudeTextView.setText(String.valueOf(location.getLatitude()));
-        } else
+        }
+        else
         {
             // no coordinates set
             showToastMsg("No Coordinates to Display!");
@@ -310,6 +260,18 @@ public class StudentBusActivity extends AppCompatActivity
 
         if (location != null)
         {
+//            if() niba shoferi yahisemo route 1, location data ze zijye muri ntuza yayo
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+            // save location in firebase
+            reference.child(getString(R.string.bus_location))
+                    .child(getString(R.string.route_1))
+                    .child(getString(R.string.location))
+                    .setValue(null);
+            reference.child(getString(R.string.bus_location))
+                    .child(getString(R.string.route_1))
+                    .child(getString(R.string.location))
+                    .setValue(location);
+
             getSupportFragmentManager().beginTransaction().replace(R.id.map_location, googleMapFragment).commit();
             showToastMsg("See your current location on Google Map!");
         } else
@@ -318,19 +280,30 @@ public class StudentBusActivity extends AppCompatActivity
         }
 
     }
+
     private class LocationUpdatesListener implements LocationListener
     {
         @Override
         public void onLocationChanged(@NonNull Location _location)
         {
-
             Log.d(TAG, "onLocationChanged");
 
             if (_location != null)
+            {
                 location = _location;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                viewMyLocation();
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+                // save location in firebase
+                reference.child(getString(R.string.bus_location))
+                        .child(getString(R.string.route_1))
+                        .child(getString(R.string.location))
+                        .setValue(null);
+                reference.child(getString(R.string.bus_location))
+                        .child(getString(R.string.route_1))
+                        .child(getString(R.string.location))
+                        .setValue(location);
             }
+
+            viewMyLocation();
         }
 
         @Override
@@ -402,7 +375,7 @@ public class StudentBusActivity extends AppCompatActivity
     private void registerForLocationUpdates()
     {
         if (checkForLocationPermission())
-            locationManager.requestLocationUpdates("gps", 500L, 1.0f, new LocationUpdatesListener());
+            locationManager.requestLocationUpdates("gps", 500L, 1.0f, new DriverMapMeActivity.LocationUpdatesListener());
     }
 
     @Override

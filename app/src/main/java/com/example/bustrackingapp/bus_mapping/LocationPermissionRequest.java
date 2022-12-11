@@ -1,4 +1,4 @@
-package com.example.bustrackingapp.entities.bus_mapping;
+package com.example.bustrackingapp.bus_mapping;
 
 import android.Manifest;
 import android.content.pm.PackageManager;

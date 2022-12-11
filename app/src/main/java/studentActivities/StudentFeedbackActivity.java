@@ -1,4 +1,4 @@
-package com.example.bustrackingapp;
+package studentActivities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -8,11 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.example.bustrackingapp.Confirmation;
+import com.example.bustrackingapp.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -86,4 +85,10 @@ public class StudentFeedbackActivity extends AppCompatActivity  {
 //
 //    }
 
+    public static class StudentsListActivity extends AppCompatActivity {
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_student_list);
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.bustrackingapp;
+package busActivitites;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.bustrackingapp.R;
+import com.example.bustrackingapp.TimeBusActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import RetrieveFacadePattern.RetrieveFacade;
 
 public class BusStopActivity extends AppCompatActivity {
 
@@ -59,9 +63,11 @@ public class BusStopActivity extends AppCompatActivity {
         bustStop.add("Select your bus stop");
         arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, bustStop);
         route_item.setAdapter(arrayAdapter);
-        retrieveDataBusStop();
+        arrayAdapter.notifyDataSetChanged();
+        RetrieveFacade retrieveFacade = new RetrieveFacade(arrayAdapter,bustStop);
+        retrieveFacade.retrieveDataBusStop();
+//        retrieveDataBusStop();
         System.out.println("----------------------------");
-
         btnBusStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,26 +77,26 @@ public class BusStopActivity extends AppCompatActivity {
 
     }
 
-    public void retrieveDataBusStop() {
-
-        listener = databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot item:dataSnapshot.getChildren()){
-                    bustStop.add(item.getValue().toString());
-                }
-                System.out.println("-------------------------->>>>>" + bustStop.size());
-
-                arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
+//    public void retrieveDataBusStop() {
+//
+//        listener = databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                for(DataSnapshot item:dataSnapshot.getChildren()){
+//                    bustStop.add(item.getValue().toString());
+//                }
+//                System.out.println("-------------------------->>>>>" + bustStop.size());
+//
+//                arrayAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
 
 
 }

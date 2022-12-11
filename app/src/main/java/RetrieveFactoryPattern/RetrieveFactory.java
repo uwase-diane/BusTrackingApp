@@ -1,9 +1,5 @@
 package RetrieveFactoryPattern;
 
-import com.example.bustrackingapp.RouteDetailsActivity;
-import com.example.bustrackingapp.StudentFeedbackActivity;
-import com.example.bustrackingapp.TimeBusActivity;
-
 public class RetrieveFactory {
 
     public  static Retrieve getData(String data)

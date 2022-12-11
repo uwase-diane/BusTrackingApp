@@ -8,19 +8,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.bustrackingapp.entities.bus_mapping.MapBusActivity;
-import com.example.bustrackingapp.entities.bus_mapping.StudentBusActivity;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.example.bustrackingapp.bus_mapping.MapBusActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import RetrieveFacadePattern.RetrieveFacade;
 import RetrieveFactoryPattern.Retrieve;
 import RetrieveFactoryPattern.RetrieveFactory;
 
@@ -55,7 +52,12 @@ public class TimeBusActivity extends AppCompatActivity   {
         time.add(getString(R.string.select_your_preferred_time));
        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, time);
         pickUpTimeSpinner.setAdapter(arrayAdapter);
-        retrieveDataPreferredTime();
+        arrayAdapter.notifyDataSetChanged();
+
+        RetrieveFacade retrieveFacade = new RetrieveFacade(arrayAdapter,time);
+
+        retrieveFacade.retrieveDataPreferredTime();
+//        retrieveDataPreferredTime();
 
 
         // notify time
@@ -91,25 +93,25 @@ public class TimeBusActivity extends AppCompatActivity   {
 
 
 
-    public void retrieveDataPreferredTime() {
-
-            listener = databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot item:dataSnapshot.getChildren()){
-                    time.add(item.getValue().toString());
-                }
-
-                arrayAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
+//    public void retrieveDataPreferredTime() {
+//
+//            listener = databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                for(DataSnapshot item:dataSnapshot.getChildren()){
+//                    time.add(item.getValue().toString());
+//                }
+//
+//                arrayAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
 
 
 //    public void retrieveDataNotifyTime() {

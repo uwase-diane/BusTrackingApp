@@ -1,4 +1,4 @@
-package com.example.bustrackingapp;
+package DriverActivities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,7 +11,8 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.bustrackingapp.entities.bus_mapping.DriverMapMeActivity;
+import com.example.bustrackingapp.R;
+import com.example.bustrackingapp.bus_mapping.DriverMapMeActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

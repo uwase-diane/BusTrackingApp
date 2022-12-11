@@ -1,19 +1,15 @@
-package com.example.bustrackingapp.entities.bus_mapping;
+package com.example.bustrackingapp.bus_mapping;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.bustrackingapp.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,8 +18,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.Objects;
 
 
 public class MapBusFragment extends Fragment implements OnMapReadyCallback

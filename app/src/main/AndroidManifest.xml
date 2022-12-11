@@ -26,23 +26,23 @@
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".StudentsListActivity"
+            android:name="studentActivities.StudentFeedbackActivity$StudentsListActivity"
             android:exported="true" />
         <activity
-            android:name=".entities.bus_mapping.DriverMapMeActivity"
+            android:name=".bus_mapping.DriverMapMeActivity"
             android:exported="true" />
         <activity
-            android:name=".entities.bus_mapping.Distance_Map"
+            android:name=".bus_mapping.Distance_Map"
             android:exported="true" />
 
         <activity
             android:name=".SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".entities.bus_mapping.LocationPermissionRequest"
+            android:name=".bus_mapping.LocationPermissionRequest"
             android:exported="true" />
         <activity
-            android:name=".DriverActivity"
+            android:name="DriverActivities.DriverActivity"
             android:exported="true" />
         <activity
             android:name=".SplashScreen"
@@ -55,10 +55,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RouteDetailsActivity"
+            android:name="busActivitites.RouteDetailsActivity"
             android:exported="true" />
         <activity
-            android:name=".BusStopActivity"
+            android:name="busActivitites.BusStopActivity"
             android:exported="true" />
         <activity
             android:name=".StudentDriverActivity"
@@ -67,10 +67,10 @@
             android:name=".TimeBusActivity"
             android:exported="true" />
         <activity
-            android:name=".entities.bus_mapping.MapBusActivity"
+            android:name=".bus_mapping.MapBusActivity"
             android:exported="true" />
         <activity
-            android:name=".entities.bus_mapping.StudentBusActivity"
+            android:name=".bus_mapping.StudentBusActivity"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
