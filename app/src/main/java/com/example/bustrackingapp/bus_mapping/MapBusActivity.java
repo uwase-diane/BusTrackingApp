@@ -1,5 +1,6 @@
 package com.example.bustrackingapp.bus_mapping;
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 
 import android.content.Context;
@@ -26,6 +27,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import com.example.bustrackingapp.MainActivity;
 import com.example.bustrackingapp.R;
 import studentActivities.StudentFeedbackActivity;
 import com.example.bustrackingapp.TimeBusActivity;
@@ -55,12 +57,19 @@ public class MapBusActivity extends AppCompatActivity
 
     float x1,x2,y1,y2;
 
+    // next botton
+
+
+
+
 
     // called when mainActivity is first created.
+    @SuppressLint("MissingInflatedId")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
         if(checkForSmsPermission())
             firstTimePermissionEnabled = false;
 
@@ -103,6 +112,7 @@ public class MapBusActivity extends AppCompatActivity
             loadGoogleMapFragment();
         });
 
+
     }
     // swipe
 
@@ -129,6 +139,13 @@ public class MapBusActivity extends AppCompatActivity
 
         return false;
     }
+
+    // next activity
+
+
+
+
+
     public void onClickApprovePermissionRequest(View view)
     {
         Log.d(TAG, "onClickApprovePermissionRequest()");

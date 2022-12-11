@@ -26,7 +26,7 @@
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name="studentActivities.StudentFeedbackActivity$StudentsListActivity"
+            android:name="studentActivities.StudentFeedbackActivity"
             android:exported="true" />
         <activity
             android:name=".bus_mapping.DriverMapMeActivity"
@@ -43,6 +43,9 @@
             android:exported="true" />
         <activity
             android:name="DriverActivities.DriverActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Confirmation"
             android:exported="true" />
         <activity
             android:name=".SplashScreen"

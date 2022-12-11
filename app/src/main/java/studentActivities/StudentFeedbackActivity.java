@@ -63,28 +63,6 @@ public class StudentFeedbackActivity extends AppCompatActivity  {
 
     }
 
-//    @Override
-//    public void retrieveDataFeedback() {
-//
-//        listener = databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                for(DataSnapshot item:dataSnapshot.getChildren()){
-//                    student_feedback.add(item.getValue().toString());
-//                }
-//
-//                arrayAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//    }
-
     public static class StudentsListActivity extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);

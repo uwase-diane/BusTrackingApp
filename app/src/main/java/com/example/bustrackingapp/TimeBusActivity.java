@@ -80,7 +80,6 @@ public class TimeBusActivity extends AppCompatActivity   {
 
 
         arrayAdapterNotifyTime = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, notifyTime);
-//        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         notifyTimeSpinner.setAdapter(arrayAdapterNotifyTime);
         retrieve1.retrieveDataFeedback(arrayAdapterNotifyTime,notifyTime);
         arrayAdapterNotifyTime.notifyDataSetChanged();
@@ -88,62 +87,4 @@ public class TimeBusActivity extends AppCompatActivity   {
 
 
     }
-
-
-
-
-
-//    public void retrieveDataPreferredTime() {
-//
-//            listener = databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                for(DataSnapshot item:dataSnapshot.getChildren()){
-//                    time.add(item.getValue().toString());
-//                }
-//
-//                arrayAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
-
-
-//    public void retrieveDataNotifyTime() {
-//
-//
-//    }
-
-//    @Override
-//    public void retrieveDataFeedback() {
-//        listener = databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                for(DataSnapshot item:dataSnapshot.getChildren()){
-//                    notifyTime.add(item.getValue().toString());
-//                }
-//
-//                arrayAdapterNotifyTime.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        mapBus.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(getApplicationContext(), StudentBusActivity.class));
-//            }
-//        });
-//
-//    }
 }

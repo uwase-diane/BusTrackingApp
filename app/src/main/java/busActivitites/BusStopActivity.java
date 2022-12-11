@@ -58,6 +58,10 @@ public class BusStopActivity extends AppCompatActivity {
             databaseReference = FirebaseDatabase.getInstance().getReference("Route3");
 
         }
+        else
+        {
+            System.out.println("You didn't select a route");
+        }
 
         bustStop = new ArrayList<>();
         bustStop.add("Select your bus stop");
@@ -77,26 +81,7 @@ public class BusStopActivity extends AppCompatActivity {
 
     }
 
-//    public void retrieveDataBusStop() {
-//
-//        listener = databaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                for(DataSnapshot item:dataSnapshot.getChildren()){
-//                    bustStop.add(item.getValue().toString());
-//                }
-//                System.out.println("-------------------------->>>>>" + bustStop.size());
-//
-//                arrayAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
+
 
 
 }

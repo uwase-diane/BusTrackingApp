@@ -16,7 +16,8 @@
     <string name="Sign_up">signup</string>
     <string name="Login">login</string>
     <string name="map_me_button_text">Map the bus</string>
-    <string name="map_stop_button_text">Stop the bus</string>
+    <string name="map_stop_button_text">Stop Map</string>
+    <string name="next">Next</string>
     <string name="no_permission_warning">The application requires permission to access your location.</string>
     <string name="null_location_message">Not available</string>
     <string name="current_location">Bus Location</string>

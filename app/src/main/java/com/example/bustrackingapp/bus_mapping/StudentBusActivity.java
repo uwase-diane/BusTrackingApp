@@ -1,5 +1,6 @@
 package com.example.bustrackingapp.bus_mapping;
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 
 import android.content.Context;
@@ -24,6 +25,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.bustrackingapp.Confirmation;
+import com.example.bustrackingapp.MainActivity;
 import com.example.bustrackingapp.R;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +36,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
+
+import studentActivities.StudentFeedbackActivity;
 
 
 public class StudentBusActivity extends AppCompatActivity
@@ -52,12 +57,20 @@ public class StudentBusActivity extends AppCompatActivity
     // toast notification
     private Toast toastObj;
 
+    Button btnStop;
+
 
     // called when mainActivity is first created.
+    @SuppressLint("MissingInflatedId")
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+
+        btnStop = findViewById(R.id.btnStop);
+
+
+
         if(checkForSmsPermission())
             firstTimePermissionEnabled = false;
 
@@ -73,6 +86,27 @@ public class StudentBusActivity extends AppCompatActivity
         checkLocationServices(savedInstanceState);
         setContentView(R.layout.student_activity_map_main);
 
+//        btnStop.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getApplicationContext(), StudentFeedbackActivity.class));
+//            }
+//        });
+
+        btnStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), StudentFeedbackActivity.class));
+            }
+        });
+
+//        btnStop.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(v.getContext(), StudentFeedbackActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         // find the TextViews for longitude and latitude
         longitudeTextView = findViewById(R.id.longitude_value);

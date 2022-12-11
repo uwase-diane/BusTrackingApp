@@ -126,13 +126,6 @@
                 android:text="@string/map_me_button_text"
                 android:textColor="#ffffff" />
 
-            <!--            <TextView-->
-<!--                android:id="@+id/textView1"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_weight="1" />-->
-
-
             <Button
                 android:id="@+id/stop_button"
                 style="?android:attr/buttonBarButtonStyle"
