@@ -32,7 +32,7 @@ public class BusNearNotification {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.notification_icon)
-                .setContentTitle("My notification")
+                .setContentTitle("Bus tracking notification")
                 .setContentText("Hello")
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText("Much longer text that cannot fit one line..."))
