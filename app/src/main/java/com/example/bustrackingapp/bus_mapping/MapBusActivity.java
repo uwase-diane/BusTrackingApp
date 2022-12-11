@@ -1,8 +1,6 @@
-package com.example.bustrackingapp.entities.bus_mapping;
+package com.example.bustrackingapp.bus_mapping;
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,12 +26,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.example.bustrackingapp.MainActivity;
-import com.example.bustrackingapp.MapsActivity;
 import com.example.bustrackingapp.R;
-import com.example.bustrackingapp.RouteDetailsActivity;
-import com.example.bustrackingapp.StudentDriverActivity;
-import com.example.bustrackingapp.StudentFeedbackActivity;
+import studentActivities.StudentFeedbackActivity;
 import com.example.bustrackingapp.TimeBusActivity;
 import com.google.android.gms.maps.SupportMapFragment;
 
