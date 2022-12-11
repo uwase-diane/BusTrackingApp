@@ -59,7 +59,7 @@ public class DriverMapMeActivity extends AppCompatActivity
 
         // initialize toast object
         toastObj = Toast.makeText(getApplicationContext(),
-                "Default toast message", Toast.LENGTH_SHORT);
+                getString(R.string.default_toast_message), Toast.LENGTH_SHORT);
         toastObj.setGravity(Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
 
         super.onCreate(savedInstanceState);

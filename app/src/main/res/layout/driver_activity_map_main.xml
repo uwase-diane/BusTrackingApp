@@ -116,11 +116,11 @@
             <Button
                 android:id="@+id/map_me_button"
                 style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="300dp"
+                android:layout_width="180dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:layout_marginRight="100dp"
+                android:layout_marginRight="60dp"
                 android:backgroundTint="#6FCF97"
                 android:padding="10dp"
                 android:text="@string/map_me_button_text"
@@ -132,6 +132,19 @@
 <!--                android:layout_height="wrap_content"-->
 <!--                android:layout_weight="1" />-->
 
+
+            <Button
+                android:id="@+id/stop_button"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="180dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="90dp"
+                android:backgroundTint="#6FCF97"
+                android:padding="10dp"
+                android:text="@string/map_stop_button_text"
+                android:textColor="#ffffff" />
 
         </LinearLayout>
 

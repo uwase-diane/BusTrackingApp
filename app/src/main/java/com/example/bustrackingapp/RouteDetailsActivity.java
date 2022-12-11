@@ -69,7 +69,7 @@ public class RouteDetailsActivity extends AppCompatActivity    {
 
         databaseReferenceRoute = FirebaseDatabase.getInstance().getReference("Routes");
         busRoute = new ArrayList<>();
-        busRoute.add("Select your route ");
+        busRoute.add(getString(R.string.Select_your_route));
         RetrieveFactory shapeFactory = new RetrieveFactory();
         Retrieve retrieve1 = shapeFactory.getData("routeDetails");
 

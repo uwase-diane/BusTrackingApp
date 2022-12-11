@@ -27,17 +27,17 @@ public class LocationPermissionRequest extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate LocationPermissionRequest");
+        Log.d(TAG, getString(R.string.onCreate_LocationPermissionRequest));
         
         // If permissions granted, we start the main activity (shut this activity down).
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
         {
-            Log.d(TAG, "Permission had previously been granted for location access");
+            Log.d(TAG, getString(R.string.permission_had_previously_been_granted_for_location_access));
             finish();
         }
         
-        Log.d(TAG, "Screen created for location permission");
+        Log.d(TAG, "screen created for location permission");
         setContentView(R.layout.location_permission);
 
         // bind accept / deny buttons
