@@ -3,6 +3,7 @@ package busActivitites;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -30,7 +31,8 @@ public class BusStopActivity extends AppCompatActivity {
     ValueEventListener listener;
     DatabaseReference databaseReference;
     ArrayAdapter arrayAdapter;
-
+    String selectedStop;
+    String s;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,7 @@ public class BusStopActivity extends AppCompatActivity {
         // BUS stop
 
         Intent intent = getIntent();
+
         if(intent.getStringExtra("selected route").equals("Route1"))
         {
             databaseReference = FirebaseDatabase.getInstance().getReference("Route1");
@@ -71,11 +74,28 @@ public class BusStopActivity extends AppCompatActivity {
         RetrieveFacade retrieveFacade = new RetrieveFacade(arrayAdapter,bustStop);
         retrieveFacade.retrieveDataBusStop();
 //        retrieveDataBusStop();
+        route_item.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        selectedStop = bustStop.get(i);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+
+
         System.out.println("----------------------------");
         btnBusStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), TimeBusActivity.class));
+                Intent s_intent = new Intent(view.getContext(), TimeBusActivity.class);
+                s_intent.putExtra("selected stop",selectedStop);
+                s_intent.putExtra("selected route",getIntent().getStringExtra("selected route"));
+                startActivity(s_intent);
+               // startActivity(new Intent(getApplicationContext(), TimeBusActivity.class));
             }
         });
 

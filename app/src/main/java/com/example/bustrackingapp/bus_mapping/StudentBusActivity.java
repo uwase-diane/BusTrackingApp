@@ -3,6 +3,8 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,6 +38,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import busActivitites.BusNearNotification;
 
 import studentActivities.StudentFeedbackActivity;
 
@@ -46,11 +52,15 @@ public class StudentBusActivity extends AppCompatActivity
     private LocationManager locationManager;
     private TextView longitudeTextView;
     private TextView latudeTextView;
-
+    NotificationChannel channel;
+    NotificationManager notificationManager;
     private SupportMapFragment supportMapFragment;
     private MapBusFragment googleMapFragment;
     private boolean firstTimePermissionEnabled = true;
     private static final int SMS_PERMISSION_REQUEST_CODE = 12;
+    double stop_longitude, stop_latitude;
+    String timeselected;
+    Location stop_location;
     // TAG for log
     private final String TAG = "MapBusActivity";
 
@@ -85,13 +95,8 @@ public class StudentBusActivity extends AppCompatActivity
 
         checkLocationServices(savedInstanceState);
         setContentView(R.layout.student_activity_map_main);
+        createNotificationChannel();
 
-//        btnStop.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(getApplicationContext(), StudentFeedbackActivity.class));
-//            }
-//        });
 
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,13 +105,6 @@ public class StudentBusActivity extends AppCompatActivity
             }
         });
 
-//        btnStop.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(v.getContext(), StudentFeedbackActivity.class);
-//                startActivity(intent);
-//            }
-//        });
 
         // find the TextViews for longitude and latitude
         longitudeTextView = findViewById(R.id.longitude_value);
@@ -123,12 +121,12 @@ public class StudentBusActivity extends AppCompatActivity
         btnMapMe.setOnClickListener(v ->
         {
             // location permission request
-            if (!checkForLocationPermission())
-            {
-                Log.d(TAG, "Start LocationPermissionRequest as there is no permission to get location");
-                Intent startIntent = new Intent(this, LocationPermissionRequest.class);
-                startActivityForResult(startIntent, 0);
-            }
+//            if (!checkForLocationPermission())
+//            {
+//                Log.d(TAG, "Start LocationPermissionRequest as there is no permission to get location");
+//                Intent startIntent = new Intent(this, LocationPermissionRequest.class);
+//                startActivityForResult(startIntent, 0);
+//            }
 
             // google map fragment on screen.
             loadGoogleMapFragment();
@@ -139,11 +137,9 @@ public class StudentBusActivity extends AppCompatActivity
     {
         Log.d(TAG, "onClickApprovePermissionRequest()");
 
-//        ActivityCompat.requestPermissions(
-//                this,
-//                new String[]{Manifest.permission.SEND_SMS},
-//                SMS_PERMISSION_REQUEST_CODE);
+
     }
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onStart()
@@ -163,9 +159,9 @@ public class StudentBusActivity extends AppCompatActivity
         Locale locale = getResources().getConfiguration().locale;
 
         //get handle for current location including latitude and longitude
-        location = this.getCurrentLocation();
-//        location.setLatitude(-1.9443);
-//        location.setLongitude(30.09497);
+
+        location = new Location("Bus location");
+
         //getting location from database
         Query longitude_query = FirebaseDatabase.getInstance().getReference().child(getString(R.string.bus_location))
                 .child(getString(R.string.route_1))
@@ -181,11 +177,13 @@ public class StudentBusActivity extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
-//                    location = (Location)dataSnapshot.getValue();
+
                     System.out.println("location longitude: "+dataSnapshot.getValue());
 
                     location.setLongitude(Double.parseDouble(dataSnapshot.getValue().toString()));
-                    Log.d(TAG, "onDataChange: (location retrieval from db)"+location.toString());
+                    googleMapFragment.mapBusOnMap(location);
+//                    notifyStudent(stop_location, timeselected);
+//                    Log.d(TAG, "onDataChange: (location retrieval from db)"+location.toString());
                     /////////////////////you need to finish this data reading form firebase
                 }
             }
@@ -200,10 +198,11 @@ public class StudentBusActivity extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
-//                    location = (Location)dataSnapshot.getValue();
+
                     System.out.println("location latitude: "+dataSnapshot.getValue());
 
                     location.setLatitude(Double.parseDouble(dataSnapshot.getValue().toString()));
+                    googleMapFragment.mapBusOnMap(location);
                     Log.d(TAG, "onDataChange: (location retrieval from db)"+location.toString());
                     /////////////////////you need to finish this data reading form firebase
                 }
@@ -215,7 +214,7 @@ public class StudentBusActivity extends AppCompatActivity
             }
         });
         //track the location as device moves
-        registerForLocationUpdates();
+//        registerForLocationUpdates();
 
         // display my current coordinates
         viewMyLocation();
@@ -310,14 +309,14 @@ public class StudentBusActivity extends AppCompatActivity
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public Location getCurrentLocation()
-    {
-        if (checkForLocationPermission())
-            return locationManager.getLastKnownLocation("gps");
-        else
-            return null;
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.M)
+//    public Location getCurrentLocation()
+//    {
+//        if (checkForLocationPermission())
+//            return locationManager.getLastKnownLocation("gps");
+//        else
+//            return null;
+//    }
 
 
     public void viewMyLocation()
@@ -352,47 +351,107 @@ public class StudentBusActivity extends AppCompatActivity
         }
 
     }
-    private class LocationUpdatesListener implements LocationListener
+//    private class LocationUpdatesListener implements LocationListener
+//    {
+//        @Override
+//        public void onLocationChanged(@NonNull Location _location)
+//        {
+//
+//            Log.d(TAG, "onLocationChanged");
+//
+//            if (_location != null)
+//                location = _location;
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                viewMyLocation();
+//            }
+//        }
+//
+//        @Override
+//        public void onStatusChanged(String provider, int status, Bundle extras)
+//        {
+//            Log.d(TAG, "onStatusChanged");
+//            showToastMsg("Location disabled!, please enable location");
+//        }
+//
+//        @RequiresApi(api = Build.VERSION_CODES.M)
+//        @Override
+//        public void onProviderEnabled(@NonNull String provider)
+//        {
+//            Log.d(TAG, "onProviderEnabled");
+//            if (checkForLocationPermission())
+//                locationManager.requestLocationUpdates("gps", 1000L, 1.0f, this);
+//        }
+//
+//        @Override
+//        public void onProviderDisabled(@NonNull String provider)
+//        {
+//            Log.d(TAG, "onProviderDisabled");
+//
+//            showToastMsg("Location disabled!, please enable location");
+//        }
+//
+//    }
+public void notifyStudent(Location stop_loc, String selected_time) {
+//        ##################################
+    double distance, time, time_selected = 0;
+    if(selected_time.equals("5 min"))
     {
-        @Override
-        public void onLocationChanged(@NonNull Location _location)
-        {
-
-            Log.d(TAG, "onLocationChanged");
-
-            if (_location != null)
-                location = _location;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                viewMyLocation();
-            }
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras)
-        {
-            Log.d(TAG, "onStatusChanged");
-            showToastMsg("Location disabled!, please enable location");
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.M)
-        @Override
-        public void onProviderEnabled(@NonNull String provider)
-        {
-            Log.d(TAG, "onProviderEnabled");
-            if (checkForLocationPermission())
-                locationManager.requestLocationUpdates("gps", 1000L, 1.0f, this);
-        }
-
-        @Override
-        public void onProviderDisabled(@NonNull String provider)
-        {
-            Log.d(TAG, "onProviderDisabled");
-
-            showToastMsg("Location disabled!, please enable location");
-        }
-
+        time_selected = 5;
     }
+    if(selected_time.equals("10 min"))
+    {
+        time_selected = 10;
+    }
+//    do {
+        //##########################################3
+        distance = location.distanceTo(stop_loc);
+//        textView.setText("Distance between two Geographic Locations: " + distance + " KMS");
 
+        time = 60 * distance / 60000;
+
+
+//    }
+//    while (time > time_selected);
+    if (time > time_selected)
+        BusNearNotification.showNotification(this,"bus tracking reminder"," the bus is "+time+" minutes away!");
+
+//    ########################################
+
+
+
+
+
+
+
+//    waiterTimer.scheduleAtFixedRate(new TimerTask() {
+//        @Override
+//        public void run() {
+//            runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    secs += 1;
+//                    if (secs == 60) {
+//                        mins += 1;
+//                        secs = 0;
+//                    }
+//                    label.setText("");
+//                    maxSitTime = Integer.parseInt(String.valueOf(set_Time.getEditableText()));
+//                    if (mins == maxSitTime) {
+//
+//                        Notification.showNotification(
+//                                context,
+//                                getString(R.string.textTitle),
+//                                "You have been sitting too long! Please try to move!"
+//                        );
+//                        set_Notify.setText(getString(R.string.textContent));
+//                        stopTimer();
+//                    }
+//                    elapsed_Time.setText(String.format(getString(R.string.elapsed_Time), mins, secs));
+//                }
+//            });
+//        }
+//    }, 0, 1000);
+}
     public void showToastMsg(String toastMsg)
     {
         // update toast message and show
@@ -432,12 +491,12 @@ public class StudentBusActivity extends AppCompatActivity
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    private void registerForLocationUpdates()
-    {
-        if (checkForLocationPermission())
-            locationManager.requestLocationUpdates("gps", 500L, 1.0f, new LocationUpdatesListener());
-    }
+//    @RequiresApi(api = Build.VERSION_CODES.M)
+//    private void registerForLocationUpdates()
+//    {
+//        if (checkForLocationPermission())
+//            locationManager.requestLocationUpdates("gps", 500L, 1.0f, new LocationUpdatesListener());
+//    }
 
     @Override
     public void onSaveInstanceState(Bundle outState)
@@ -461,5 +520,18 @@ public class StudentBusActivity extends AppCompatActivity
         super.onRestoreInstanceState(savedInstanceState);
         googleMapFragment = savedInstanceState.getParcelable("obj");
     }
+    private void createNotificationChannel() {
 
+        String channelId = "sit_notifications";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            channel = new NotificationChannel(channelId, name, importance);
+            channel.setDescription(description);
+
+            notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
 }

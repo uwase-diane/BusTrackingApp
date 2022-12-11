@@ -43,14 +43,7 @@ public class Distance_Map extends AppCompatActivity {
         double distance, time;
         Location loc_A = currentLocation, loc_B = destination;
         do {
-//            currentLocation = new Location("locationA");
 
-//        currentLocation.setLatitude(17.372102);
-//        currentLocation.setLongitude(78.484196);
-//            destination = new Location("locationB");
-
-//        destination.setLatitude(17.375775);
-//        destination.setLongitude(78.469218);
 
             //####################################3
             //getting location from database
